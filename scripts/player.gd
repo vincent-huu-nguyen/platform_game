@@ -33,7 +33,7 @@ var rate_of_fire = 0.5
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
 
 func _ready():
-	regen_timer.stop()
+	regen_timer.start(REGEN_INTERVAL)
 	add_to_group("Player") # Add player to the "Player" group
 
 # Called every frame
@@ -48,7 +48,7 @@ func _process(delta):
 	else:
 		# Handle aiming, shooting, and dashing
 		aim_shooter()
-		handle_shooting()
+		SkillLoop()
 		handle_dashing()
 
 # Called every physics frame
@@ -117,7 +117,7 @@ func aim_shooter():
 	shooter.rotation = direction.angle()
 	
 # Handles shooting projectiles
-func handle_shooting():
+func SkillLoop():
 	if Input.is_action_pressed("shoot") and can_fire:
 		can_fire = false
 		var projectile_instance = projectile.instantiate()
@@ -127,11 +127,6 @@ func handle_shooting():
 		get_parent().add_child(projectile_instance)
 		print("Projectile instantiated at: ", projectile_instance.position, " with rotation: ", projectile_instance.rotation)
 		fire_timer.start(rate_of_fire)
-		
-		# Restart health regeneration timer when shooting to prevent spam
-		if not regen_timer.is_stopped():
-			regen_timer.stop()
-		regen_timer.start(REGEN_INTERVAL)
 
 # Called when fire timer times out to allow firing again
 func _on_fire_timer_timeout():
@@ -163,8 +158,7 @@ func _on_regen_timer_timeout():
 	if health < MAX_HEALTH:
 		health += 1
 		print("Health regenerated to: ", health)
-		if health < MAX_HEALTH:
-			regen_timer.start(REGEN_INTERVAL)
+	regen_timer.start(REGEN_INTERVAL)
 	
 # Method to decrease health
 func take_damage(amount):
@@ -172,8 +166,4 @@ func take_damage(amount):
 	print("Health decreased to: ", health)
 	if health <= 0:
 		print("Player died")
-	else:
-		# Restart health regeneration timer if health is less than max
-		if not regen_timer.is_stopped():
-			regen_timer.stop()
-		regen_timer.start(REGEN_INTERVAL)
+		
