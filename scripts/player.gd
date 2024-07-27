@@ -17,6 +17,7 @@ var is_dashing = false
 var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
+var is_dead = false
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
@@ -31,13 +32,17 @@ var rate_of_fire = 0.5
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
+@onready var health_ui  = $UI/Hearts
 
 func _ready():
 	regen_timer.stop()
 	add_to_group("Player") # Add player to the "Player" group
-
+	update_health_ui()
+	
 # Called every frame
 func _process(delta):
+	if is_dead:
+		return
 	if is_dashing:
 		# Countdown for dash duration
 		dash_timer -= delta
@@ -53,6 +58,11 @@ func _process(delta):
 
 # Called every physics frame
 func _physics_process(delta):
+	if is_dead:
+		# Apply gravity to make the player fall off the screen
+		velocity.y += gravity * delta
+		move_and_slide()
+		return
 	if not is_dashing:
 		# Apply gravity if not on the floor
 		if not is_on_floor():
@@ -162,6 +172,7 @@ func _on_dash_cooldown_timeout():
 func _on_regen_timer_timeout():
 	if health < MAX_HEALTH:
 		health += 1
+		update_health_ui()
 		print("Health regenerated to: ", health)
 		if health < MAX_HEALTH:
 			regen_timer.start(REGEN_INTERVAL)
@@ -169,11 +180,25 @@ func _on_regen_timer_timeout():
 # Method to decrease health
 func take_damage(amount):
 	health -= amount
+	update_health_ui()
 	print("Health decreased to: ", health)
 	if health <= 0:
-		print("Player died")
+		die()
 	else:
 		# Restart health regeneration timer if health is less than max
 		if not regen_timer.is_stopped():
 			regen_timer.stop()
 		regen_timer.start(REGEN_INTERVAL)
+		
+func die():
+	is_dead = true
+	animated_sprite.play("die")
+	velocity = Vector2(0, 300)  # Initial downward velocity
+	print("Player died")
+
+# Update the health UI based on the current health
+func update_health_ui():
+	if health <= 0:
+		health_ui.visible = 0
+	else:
+		health_ui.size.x = health * 50

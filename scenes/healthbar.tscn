@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjelmx0scc7sj"]
+
+[ext_resource type="Script" path="res://scenes/healthbar.gd" id="1_e2tud"]
+[ext_resource type="Texture2D" uid="uid://d0uey1863fngd" path="res://assets/sprites/heart.png" id="2_5fim3"]
+
+[node name="healthbar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_e2tud")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_5fim3")
+expand_mode = 2

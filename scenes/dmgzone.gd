@@ -7,8 +7,6 @@ func _ready():
 	# Called when the node is added to the scene
 	if timer:
 		print("Timer node found")  # Debug message to confirm the Timer node is found
-		# Connect the Timer's timeout signal to the _on_timer_timeout function
-		timer.connect("timeout", Callable(self, "_on_timer_timeout"))
 	else:
 		print("Timer node is not found")  # Debug message if Timer node is missing
 
@@ -16,7 +14,6 @@ func _on_body_entered(body):
 	# Called when another body enters the Area2D's collision area
 	if body.is_in_group("Player"):
 		body.take_damage(1)  # Inflicts damage to the player
-		
 		# Check if the player's health is zero
 		if body.health == 0:
 			Engine.time_scale = 0.5  # Slow down the game to half speed
