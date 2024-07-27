@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2oqpyj5c37w8"]
+
+[ext_resource type="Texture2D" uid="uid://dins65373pb5h" path="res://assets/sprites/ice_spear.png" id="1_lly5r"]
+[ext_resource type="Script" path="res://scenes/projectile.gd" id="1_xf3xw"]
+
+[node name="Projectile" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_xf3xw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-6, -3)
+scale = Vector2(0.785326, 1)
+polygon = PackedVector2Array(8.87267, -1, 17.7862, 1, 8.87267, 2, 2.50588, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("1_lly5r")
+hframes = 8
+vframes = 8
+frame = 32
+
+[node name="LifeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

@@ -1,7 +1,10 @@
-[gd_scene load_steps=53 format=3 uid="uid://cfapitvkmf6j6"]
+[gd_scene load_steps=57 format=3 uid="uid://cfapitvkmf6j6"]
 
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="1_2sxm1"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t3c8r"]
+[ext_resource type="Texture2D" uid="uid://dins65373pb5h" path="res://assets/sprites/ice_spear.png" id="3_7b5g3"]
+[ext_resource type="Script" path="res://scenes/shooter.gd" id="3_apwp3"]
+[ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="3_d032w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2s71i"]
 atlas = ExtResource("1_2sxm1")
@@ -380,6 +383,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_etpfy"]
 radius = 5.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0qty"]
+atlas = ExtResource("3_7b5g3")
+region = Rect2(392, 80, 48, 32)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 3
@@ -395,3 +402,31 @@ frame_progress = 0.70856
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_etpfy")
+
+[node name="FireTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="RegenTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="HandAnchor" type="Node2D" parent="."]
+position = Vector2(0, -5)
+script = ExtResource("3_d032w")
+
+[node name="Shooter" type="Node2D" parent="HandAnchor"]
+position = Vector2(20, 0)
+script = ExtResource("3_apwp3")
+
+[node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
+position = Vector2(-7, -1)
+rotation = 0.428872
+scale = Vector2(-0.287, 0.3)
+texture = SubResource("AtlasTexture_e0qty")
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]
