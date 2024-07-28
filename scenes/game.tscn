@@ -480,7 +480,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="AIPlayer" parent="." instance=ExtResource("4_8hfr1")]
-position = Vector2(287, -24)
+position = Vector2(313, -1)
 
 [node name="Killzone" parent="." instance=ExtResource("5_6q0d1")]
 
@@ -522,4 +522,9 @@ position = Vector2(439, -293)
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_jqvc4")
 
+[node name="if_stuck_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="if_stuck_timer" to="." method="_on_if_stuck_timer_timeout"]

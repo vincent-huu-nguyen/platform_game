@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2otne")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainMenu" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,24 +36,25 @@ offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="Play" type="Button" parent="MainMenu"]
 layout_mode = 2
-text = "Start"
+text = "Play"
 
-[node name="Settings" type="Button" parent="VBoxContainer"]
+[node name="Settings" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Settings
 "
 
-[node name="Credits" type="Button" parent="VBoxContainer"]
+[node name="Credits" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Credits"
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="MainMenu"]
 layout_mode = 2
 text = "Quit"
 
 [node name="Credits" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -87,7 +88,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Credits/Panel/HBoxContainer"]
 layout_mode = 2
-text = "Developed by yaaboivince"
+text = "Developed by Cents808"
 
 [node name="CloseCredits" type="Button" parent="Credits"]
 layout_mode = 0
@@ -97,8 +98,87 @@ offset_right = 697.0
 offset_bottom = 245.0
 theme = SubResource("Theme_sk50n")
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="ModeSelect" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModeSelect"]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 256.0
+offset_right = 666.0
+offset_bottom = 392.0
+
+[node name="Duels" type="Button" parent="ModeSelect/VBoxContainer"]
+layout_mode = 2
+text = "Duels
+(Coming Soon)"
+
+[node name="AI" type="Button" parent="ModeSelect/VBoxContainer"]
+layout_mode = 2
+text = "vs. AI
+(NEW)"
+
+[node name="Back" type="Button" parent="ModeSelect/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="ai_HowToPlay" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="ai_HowToPlay"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 24.0
+offset_right = 768.0
+offset_bottom = 576.0
+
+[node name="Label" type="Label" parent="ai_HowToPlay/Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 376.0
+offset_bottom = 536.0
+text = "HOW TO PLAY
+Your goal is to beat the AI.
+Each level gets more difficult.
+Remember to take a break from shooting
+to regenerate.
+(The AI may also do the same.)
+Let's see how long you can last...
+
+CONTROLS
+Left: \"a\", left arrow key
+Right: \"d\", right arrow key
+Jump: \"w\", up arrow key, space
+Crouch: \"s\", down arrow key
+Dash: right click
+Shoot: left click
+Dash/Shoot Aim: mouse
+
+If stuck on a level: \"enter\" 
+(sorry, harmless but annoying bug
+ that got me stressin' for too long)"
+horizontal_alignment = 1
+
+[node name="Start" type="Button" parent="ai_HowToPlay"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 592.0
+offset_right = 598.0
+offset_bottom = 623.0
+text = "Start"
+
+[connection signal="pressed" from="MainMenu/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MainMenu/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Credits/CloseCredits" to="." method="_on_close_credits_pressed"]
+[connection signal="pressed" from="ModeSelect/VBoxContainer/AI" to="." method="_on_ai_pressed"]
+[connection signal="pressed" from="ModeSelect/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ai_HowToPlay/Start" to="." method="_on_start_pressed"]
