@@ -1,6 +1,9 @@
 extends Node2D
 
+var is_paused = false
+
 @onready var stuckTimer = $if_stuck_timer
+@onready var pauseMenu = $CanvasLayer/PauseMenu
 
 func _process(delta): # doesnt work idk why
 	if Engine.time_scale == 0.5:
@@ -12,6 +15,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("reset"):
 		Engine.time_scale = 1.0
 		get_tree().reload_current_scene()
+		
 
 func _on_area_2d_body_entered(body):
 	if body is Player:
@@ -21,3 +25,4 @@ func _on_area_2d_body_entered(body):
 func _on_if_stuck_timer_timeout(): # doesnt work idk why
 	print("Timer timeout reached, reloading scene")
 	get_tree().reload_current_scene()
+
