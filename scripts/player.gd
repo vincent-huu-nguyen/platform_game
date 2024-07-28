@@ -34,7 +34,7 @@ var rate_of_fire = 0.4
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
-@onready var health_ui  = $UI/Hearts
+@onready var health_ui  = $AnimatedSprite2D/Hearts
 @onready var score_label = $UI/ScoreLabel
 @onready var highscore_label = $UI/HiScoreLabel
 
@@ -233,7 +233,7 @@ func update_health_ui():
 	if health <= 0:
 		health_ui.visible = 0
 	else:
-		health_ui.size.x = health * 50
+		health_ui.size.x = health * 10
 		
 func buff(): # bonus buff
 	rate_of_fire = 0.1

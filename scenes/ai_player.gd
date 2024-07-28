@@ -34,7 +34,7 @@ var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire 
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
-@onready var health_ui = $UI/Hearts
+@onready var health_ui = $AnimatedSprite2D/Hearts
 
 # Reference to the player node
 var player = null
@@ -202,4 +202,4 @@ func update_health_ui():
 	if health <= 0:
 		health_ui.visible = 0
 	else:
-		health_ui.size.x = health * 50
+		health_ui.size.x = health * 10

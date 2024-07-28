@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="1_2sxm1"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t3c8r"]
-[ext_resource type="Texture2D" uid="uid://dj2r54qgka5ah" path="res://assets/sprites/heart50x50.png" id="2_n3ycu"]
 [ext_resource type="Texture2D" uid="uid://dins65373pb5h" path="res://assets/sprites/ice_spear.png" id="3_7b5g3"]
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="3_apwp3"]
 [ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="3_d032w"]
+[ext_resource type="Texture2D" uid="uid://bimpqwl2887gs" path="res://assets/sprites/heartbar.png" id="3_qf7hw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2s71i"]
 atlas = ExtResource("1_2sxm1")
@@ -400,30 +400,32 @@ script = ExtResource("1_t3c8r")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Hearts" type="TextureRect" parent="UI"]
-offset_right = 50.0
-offset_bottom = 50.0
-texture = ExtResource("2_n3ycu")
-stretch_mode = 1
-
 [node name="ScoreLabel" type="Label" parent="UI"]
-offset_left = 5.0
-offset_top = 47.0
-offset_right = 45.0
-offset_bottom = 70.0
-theme_override_font_sizes/font_size = 50
+offset_left = 16.0
+offset_right = 56.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 100
 
 [node name="HiScoreLabel" type="Label" parent="UI"]
-offset_left = 7.0
-offset_top = 118.0
-offset_right = 47.0
-offset_bottom = 141.0
+offset_left = 16.0
+offset_top = 152.0
+offset_right = 56.0
+offset_bottom = 194.0
+theme_override_font_sizes/font_size = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_r44iu")
 animation = &"damaged"
 autoplay = "idle"
+
+[node name="Hearts" type="TextureRect" parent="AnimatedSprite2D"]
+offset_left = -25.0
+offset_top = -20.0
+offset_right = 25.0
+offset_bottom = -10.0
+texture = ExtResource("3_qf7hw")
+stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)

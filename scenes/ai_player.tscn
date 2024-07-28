@@ -1,7 +1,7 @@
 [gd_scene load_steps=58 format=3 uid="uid://bhluq3c4neyx"]
 
 [ext_resource type="Script" path="res://scenes/ai_player.gd" id="1_7x53n"]
-[ext_resource type="Texture2D" uid="uid://dj2r54qgka5ah" path="res://assets/sprites/heart50x50.png" id="2_q1hpp"]
+[ext_resource type="Texture2D" uid="uid://bimpqwl2887gs" path="res://assets/sprites/heartbar.png" id="3_dkrdo"]
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="3_s4wpr"]
 [ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="4_6fjx0"]
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="5_0paxn"]
@@ -400,22 +400,23 @@ script = ExtResource("1_7x53n")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Hearts" type="TextureRect" parent="UI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -250.0
-offset_right = -200.0
-offset_bottom = 50.0
-grow_horizontal = 0
-texture = ExtResource("2_q1hpp")
-stretch_mode = 1
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_r44iu")
 animation = &"damaged"
 autoplay = "idle"
+
+[node name="Hearts" type="TextureRect" parent="AnimatedSprite2D"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -20.0
+offset_right = -7.0
+offset_bottom = -10.0
+grow_horizontal = 0
+texture = ExtResource("3_dkrdo")
+stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
