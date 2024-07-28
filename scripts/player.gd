@@ -43,6 +43,8 @@ func _ready():
 	add_to_group("Player") # Add player to the "Player" group
 	update_health_ui()
 	update_score_label()
+	if Global.permanant_buff == true: # bonus buff
+		rate_of_fire = 0.1
 	
 # Update the score UI based on the current score
 func update_score_label():
@@ -232,3 +234,7 @@ func update_health_ui():
 		health_ui.visible = 0
 	else:
 		health_ui.size.x = health * 50
+		
+func buff(): # bonus buff
+	rate_of_fire = 0.1
+	Global.perma_buff()

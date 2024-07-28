@@ -15,7 +15,8 @@ func _physics_process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body is Player:
-		print("win")
+		print("buff")
+		body.buff()
 
 func _on_if_stuck_timer_timeout(): # doesnt work idk why
 	print("Timer timeout reached, reloading scene")
