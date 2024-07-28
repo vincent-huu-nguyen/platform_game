@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqmm38hc0856e"]
+[gd_scene load_steps=16 format=3 uid="uid://dqmm38hc0856e"]
 
 [ext_resource type="PackedScene" uid="uid://cfapitvkmf6j6" path="res://scenes/player.tscn" id="1_5wl22"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_n0b76"]
 [ext_resource type="Texture2D" uid="uid://cp7ykpjfj64q0" path="res://assets/sprites/world_tileset.png" id="2_7vy1e"]
 [ext_resource type="PackedScene" uid="uid://iilwadms68gg" path="res://scenes/platform.tscn" id="3_adcbo"]
 [ext_resource type="PackedScene" uid="uid://2xkvnfjvjtfc" path="res://scenes/coin.tscn" id="4_8gtg3"]
+[ext_resource type="PackedScene" uid="uid://bhluq3c4neyx" path="res://scenes/ai_player.tscn" id="4_8hfr1"]
 [ext_resource type="PackedScene" uid="uid://ca22r4ex4tvt6" path="res://scenes/killzone.tscn" id="5_6q0d1"]
 [ext_resource type="PackedScene" uid="uid://dthspgq755dk5" path="res://scenes/slime.tscn" id="6_ew4e5"]
 
@@ -501,6 +502,9 @@ zoom = Vector2(4, 4)
 limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="AIPlayer" parent="." instance=ExtResource("4_8hfr1")]
+position = Vector2(287, -24)
 
 [node name="Killzone" parent="." instance=ExtResource("5_6q0d1")]
 

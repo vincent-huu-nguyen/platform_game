@@ -2,9 +2,11 @@ extends RigidBody2D
 class_name Projectile
 
 var initial_velocity: float = 300.0
-var life_time: float = 3.0
+var life_time: float = 2.0
+var damage: float = 1.0
 
 @onready var life_timer = $LifeTimer
+@onready var timer  = $RespawnTimer
 
 func _ready() -> void:
 	# Convert rotation from radians to direction vector
@@ -25,3 +27,4 @@ func _ready() -> void:
 
 func _on_LifeTimer_timeout():
 	queue_free()
+	

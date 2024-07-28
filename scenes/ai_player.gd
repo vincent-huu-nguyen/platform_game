@@ -1,4 +1,3 @@
-class_name Player
 extends CharacterBody2D
 
 # Constants for movement, jumping, and dashing
@@ -9,6 +8,8 @@ const DASH_DURATION = 0.1
 const DASH_COOLDOWN = 1.0
 const MAX_HEALTH = 5
 const REGEN_INTERVAL = 3.0
+const MIN_DISTANCE = 100.0  # Minimum distance to keep from the player
+const MAX_DISTANCE = 110.0  # Maximum distance to keep from the player
 
 # Variables to manage physics and state
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -32,62 +33,77 @@ var rate_of_fire = 0.5
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
-@onready var health_ui  = $UI/Hearts
+@onready var health_ui = $UI/Hearts
+
+# Reference to the player node
+var player = null
 
 func _ready():
 	regen_timer.stop()
-	add_to_group("Player") # Add player to the "Player" group
+	add_to_group("AIPlayer") # Add AI to the "AIPlayer" group
 	update_health_ui()
-	
+	player = get_tree().root.get_node("Game/Player") # Adjust path to player node
+
 # Called every frame
 func _process(delta):
 	if is_dead:
 		return
 	if is_dashing:
-		# Countdown for dash duration
 		dash_timer -= delta
 		if dash_timer <= 0:
-			# End dashing and stop movement
 			is_dashing = false
 			velocity = Vector2.ZERO
 	else:
-		# Handle aiming, shooting, and dashing
 		aim_shooter()
 		handle_shooting()
 		handle_dashing()
+		handle_movement()
 
 # Called every physics frame
 func _physics_process(delta):
 	if is_dead:
-		# Apply gravity to make the player fall off the screen
 		velocity.y += gravity * delta
 		move_and_slide()
 		return
 	if not is_dashing:
-		# Apply gravity if not on the floor
 		if not is_on_floor():
 			velocity.y += gravity * delta
 		else:
 			can_doublejump = true
 
-		# Handle jumping input
-		if Input.is_action_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+		if is_on_floor():
 			can_doublejump = true
-		elif Input.is_action_just_pressed("jump") and !is_on_floor() and can_doublejump:
+		elif not is_on_floor() and can_doublejump:
 			velocity.y = JUMP_VELOCITY 
 			can_doublejump = false
 
-		# Get movement direction based on input
-		var direction = Input.get_axis("move_left", "move_right")
+	move_and_slide()
+
+# Handles AI movement towards the player
+# Handles AI movement towards the player while keeping a distance
+func handle_movement():
+	if player:
+		var distance_to_player = global_position.distance_to(player.global_position)
+		var direction = 0
 		
-		# Flip the sprite based on direction
+		# Move towards player if too far
+		if distance_to_player > MAX_DISTANCE:
+			if player.global_position.x < global_position.x:
+				direction = -1
+			else:
+				direction = 1
+		# Move away from player if too close
+		elif distance_to_player < MIN_DISTANCE:
+			if player.global_position.x < global_position.x:
+				direction = 1
+			else:
+				direction = -1
+
 		if direction > 0:
 			animated_sprite.flip_h = false
 		elif direction < 0:
 			animated_sprite.flip_h = true
-		
-		# Play appropriate animations
+
 		if is_on_floor():
 			if direction == 0:
 				if animated_sprite.animation != "damaged":
@@ -95,112 +111,83 @@ func _physics_process(delta):
 			else:
 				if animated_sprite.animation != "damaged":
 					animated_sprite.play("run")
-				
-			if Input.is_action_pressed("jump"):
-				animated_sprite.play("jump")
-			
-			if Input.is_action_pressed("crouch"):
-				animated_sprite.play("crouch")
 		else:
 			if !can_doublejump:
 				animated_sprite.play("midair")
-		
-		# Apply movement input or stop if crouching
-		if Input.is_action_pressed("crouch") and is_on_floor():
-			velocity.x = 0
-		else:    
-			if direction:
-				velocity.x = direction * SPEED
-			else:
-				velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	# Apply movement and handle collisions
-	move_and_slide()
-	
-# Aims the shooter towards the mouse cursor
+		velocity.x = direction * SPEED
+
+		# Jump randomly to shoot while moving
+		if is_on_floor() and randf() < 0.02:
+			velocity.y = JUMP_VELOCITY
+			animated_sprite.play("jump")
+
+# Aims the shooter towards the player
 func aim_shooter():
-	var mouse_position = get_global_mouse_position()
-	var hand_anchor_position = hand_anchor.get_global_position()
-	var direction = (mouse_position - hand_anchor_position).normalized()
-	var offset_distance = 20  # Distance from hand anchor to shooter
-	
-	# Update shooter's position and rotation
-	shooter.position = direction * offset_distance
-	shooter.rotation = direction.angle()
-	
+	if player:
+		var player_position = player.global_position
+		var hand_anchor_position = hand_anchor.get_global_position()
+		var direction = (player_position - hand_anchor_position).normalized()
+		var offset_distance = 20  # Distance from hand anchor to shooter
+		shooter.position = direction * offset_distance
+		shooter.rotation = direction.angle()
+
 # Handles shooting projectiles
 func handle_shooting():
-	if Input.is_action_pressed("shoot") and can_fire:
+	if player and can_fire and randf() < 0.05:  # Random chance to shoot:
 		can_fire = false
 		var projectile_instance = projectile.instantiate()
-		
-		# Spawn projectile at shooter's position with its rotation
+	
 		projectile_instance.position = shooter.global_position
 		projectile_instance.rotation = shooter.rotation
 		get_parent().add_child(projectile_instance)
-		print("Projectile instantiated at: ", projectile_instance.position, " with rotation: ", projectile_instance.rotation)
 		fire_timer.start(rate_of_fire)
-		
-		# Restart health regeneration timer when shooting to prevent spam
+
 		if not regen_timer.is_stopped():
 			regen_timer.stop()
 		regen_timer.start(REGEN_INTERVAL)
 
-# Called when fire timer times out to allow firing again
 func _on_fire_timer_timeout():
 	can_fire = true
 
 # Handles dashing mechanics
 func handle_dashing():
-	if Input.is_action_just_pressed("dash") and can_dash:
+	if can_dash and randf() < 0.5:  # Random chance to dash
 		is_dashing = true
 		can_dash = false
 		dash_timer = DASH_DURATION
-		
-		# Determine dash direction based on mouse position
-		var mouse_position = get_global_mouse_position()
-		var direction = 1 if mouse_position.x > global_position.x else -1
-		# Set dash velocity
+		var direction = 1 if player.global_position.x > global_position.x else -1
 		velocity = Vector2(direction * DASH_SPEED, 0)
-		
-		# Start cooldown timer for dashing
 		dash_cooldown_timer.start(DASH_COOLDOWN)
 
-# Called when dash cooldown timer times out to reset dash ability
 func _on_dash_cooldown_timeout():
 	can_dash = true
-	print("dash reset")
 
 # Handles health regeneration
 func _on_regen_timer_timeout():
 	if health < MAX_HEALTH:
 		health += 1
 		update_health_ui()
-		print("Health regenerated to: ", health)
 		if health < MAX_HEALTH:
 			regen_timer.start(REGEN_INTERVAL)
-	
-# Method to decrease health
+
 func take_damage(amount):
 	health -= amount
 	animated_sprite.play("damaged")
 	update_health_ui()
-	print("Health decreased to: ", health)
+	print("AI health decreased to: ", health)
 	if health <= 0:
 		die()
 	else:
-		# Restart health regeneration timer if health is less than max
 		if not regen_timer.is_stopped():
 			regen_timer.stop()
 		regen_timer.start(REGEN_INTERVAL)
-		
+
 func die():
 	is_dead = true
 	animated_sprite.play("die")
-	velocity = Vector2(0, 300)  # Initial downward velocity
-	print("Player died")
+	velocity = Vector2(0, 300)
 
-# Update the health UI based on the current health
 func update_health_ui():
 	if health <= 0:
 		health_ui.visible = 0
