@@ -19,11 +19,12 @@ var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
 var is_dead = false
+var is_invincible = false
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
 var can_fire = true
-var rate_of_fire = 0.4
+var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.2
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D
@@ -195,6 +196,7 @@ func die():
 	var player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
 	if player:
 		player.increment_score()
+		player.is_invincible = true
 
 func update_health_ui():
 	if health <= 0:

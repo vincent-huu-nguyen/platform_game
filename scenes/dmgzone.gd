@@ -31,7 +31,7 @@ func _ready():
 func _on_body_entered(body):
 	# Called when another body enters the Area2D's collision area
 	if can_damage:
-		if body.is_in_group("Player"):
+		if body.is_in_group("Player") and not body.is_invincible:
 			body.take_damage(1)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound
 			# Check if the player's health is zero
@@ -43,7 +43,7 @@ func _on_body_entered(body):
 				respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
 			start_damage_cooldown()  # Start the cooldown timer
 		
-		if body.is_in_group("AIPlayer"):
+		if body.is_in_group("AIPlayer") and not body.is_invincible:
 			body.take_damage(1)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound
 			# Check if the player's health is zero

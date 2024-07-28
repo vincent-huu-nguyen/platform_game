@@ -18,6 +18,7 @@ var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
 var is_dead = false
+var is_invincible = false
 var score = 0
 
 # Preloaded projectile scene for easy instantiation
@@ -215,6 +216,12 @@ func die():
 	animated_sprite.play("die")
 	velocity = Vector2(0, 300)  # Initial downward velocity
 	print("Player died")
+	
+	# Set the opponent as invincible
+	var opponent = get_tree().root.get_node("Game/AIPlayer")
+	if opponent:
+		opponent.is_invincible = true
+	
 	Global.reset_score()
 	update_score_label()
 	print("Score reset to: ", Global.score)
