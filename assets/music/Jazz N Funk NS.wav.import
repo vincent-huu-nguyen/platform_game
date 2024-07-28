@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dsg1p5si55fmj"
+path="res://.godot/imported/Jazz N Funk NS.wav-07e4d97884949895587159ed09302df8.sample"
+
+[deps]
+
+source_file="res://assets/music/Jazz N Funk NS.wav"
+dest_files=["res://.godot/imported/Jazz N Funk NS.wav-07e4d97884949895587159ed09302df8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=true
+edit/loop_mode=2
+edit/loop_begin=1051940
+edit/loop_end=5510000
+compress/mode=0

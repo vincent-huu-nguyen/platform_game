@@ -6,6 +6,10 @@ extends Area2D
 # Cooldown timer to prevent repeated damage
 @onready var damage_cooldown_timer = $DmgCooldownTimer
 
+# AudioStreamPlayer for damage sound and KO'd sound
+@onready var damaged_sound_player = $DamagedSound
+@onready var ko_sound_player = $KOsound
+
 # Cooldown duration in seconds
 const DAMAGE_COOLDOWN = 0.5
 
@@ -29,8 +33,10 @@ func _on_body_entered(body):
 	if can_damage:
 		if body.is_in_group("Player"):
 			body.take_damage(1)  # Inflicts damage to the player
+			damaged_sound_player.play()  # Play damage sound
 			# Check if the player's health is zero
 			if body.health <= 0:
+				ko_sound_player.play()  # Play KO sound
 				print("player died...")
 				Engine.time_scale = 0.5  # Slow down the game to half speed
 				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shape
@@ -39,8 +45,10 @@ func _on_body_entered(body):
 		
 		if body.is_in_group("AIPlayer"):
 			body.take_damage(1)  # Inflicts damage to the player
+			damaged_sound_player.play()  # Play damage sound
 			# Check if the player's health is zero
 			if body.health <= 0:
+				ko_sound_player.play()  # Play KO sound
 				print("ai died...")
 				Engine.time_scale = 0.5  # Slow down the game to half speed
 				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shape

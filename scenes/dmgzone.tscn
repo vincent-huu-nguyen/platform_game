@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmnelj3bvcndp"]
+[gd_scene load_steps=4 format=3 uid="uid://bmnelj3bvcndp"]
 
 [ext_resource type="Script" path="res://scenes/dmgzone.gd" id="1_8jun3"]
+[ext_resource type="AudioStream" uid="uid://cjtcxjyaq2043" path="res://assets/sounds/hurt.wav" id="2_rihu6"]
+[ext_resource type="AudioStream" uid="uid://cq41reo5gnwxr" path="res://assets/sounds/explosion.wav" id="3_wagb7"]
 
 [node name="dmgzone" type="Area2D"]
 script = ExtResource("1_8jun3")
@@ -11,6 +13,14 @@ one_shot = true
 
 [node name="DmgCooldownTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_rihu6")
+bus = &"Sound"
+
+[node name="KOsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_wagb7")
+bus = &"Sound"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_timer_timeout"]

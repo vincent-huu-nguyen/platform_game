@@ -7,9 +7,9 @@ const DASH_SPEED = 450.0
 const DASH_DURATION = 0.1
 const DASH_COOLDOWN = 1.0
 const MAX_HEALTH = 5
-const REGEN_INTERVAL = 3.0
-const MIN_DISTANCE = 100.0  # Minimum distance to keep from the player
-const MAX_DISTANCE = 110.0  # Maximum distance to keep from the player
+const REGEN_INTERVAL = 1.0
+const MIN_DISTANCE = 115.0  # Minimum distance to keep from the player
+const MAX_DISTANCE = 118.0  # Maximum distance to keep from the player
 
 # Variables to manage physics and state
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -23,7 +23,7 @@ var is_dead = false
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
 var can_fire = true
-var rate_of_fire = 0.5
+var rate_of_fire = 0.4
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D
@@ -118,7 +118,7 @@ func handle_movement():
 		velocity.x = direction * SPEED
 
 		# Jump randomly to shoot while moving
-		if is_on_floor() and randf() < 0.02:
+		if is_on_floor() and randf() < 0.03:
 			velocity.y = JUMP_VELOCITY
 			animated_sprite.play("jump")
 
@@ -134,18 +134,21 @@ func aim_shooter():
 
 # Handles shooting projectiles
 func handle_shooting():
-	if player and can_fire and randf() < 0.05:  # Random chance to shoot:
-		can_fire = false
-		var projectile_instance = projectile.instantiate()
+	if player and can_fire:  
+		var min_shoot_chance = 0.008  # Minimum shooting chance regardless of health
+		var shoot_chance = max(1.0 * (health / MAX_HEALTH), min_shoot_chance)  # Dynamic shooting chance based on health
+		if randf() < shoot_chance:
+			can_fire = false
+			var projectile_instance = projectile.instantiate()
 	
-		projectile_instance.position = shooter.global_position
-		projectile_instance.rotation = shooter.rotation
-		get_parent().add_child(projectile_instance)
-		fire_timer.start(rate_of_fire)
+			projectile_instance.position = shooter.global_position
+			projectile_instance.rotation = shooter.rotation
+			get_parent().add_child(projectile_instance)
+			fire_timer.start(rate_of_fire)
 
-		if not regen_timer.is_stopped():
-			regen_timer.stop()
-		regen_timer.start(REGEN_INTERVAL)
+			if not regen_timer.is_stopped():
+				regen_timer.stop()
+			regen_timer.start(REGEN_INTERVAL)
 
 func _on_fire_timer_timeout():
 	can_fire = true
@@ -187,6 +190,11 @@ func die():
 	is_dead = true
 	animated_sprite.play("die")
 	velocity = Vector2(0, 300)
+	
+	# Notify the player that the AI has died
+	var player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
+	if player:
+		player.increment_score()
 
 func update_health_ui():
 	if health <= 0:

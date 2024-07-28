@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://7a7jl5rpai2h"]
+
+[ext_resource type="AudioStream" uid="uid://dsg1p5si55fmj" path="res://assets/music/Jazz N Funk NS.wav" id="1_4v0ti"]
+
+[node name="Music" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_4v0ti")
+autoplay = true
+bus = &"Music"

@@ -8,7 +8,7 @@ const DASH_SPEED = 450.0
 const DASH_DURATION = 0.1
 const DASH_COOLDOWN = 1.0
 const MAX_HEALTH = 5
-const REGEN_INTERVAL = 3.0
+const REGEN_INTERVAL = 2.0
 
 # Variables to manage physics and state
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -18,11 +18,12 @@ var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
 var is_dead = false
+var score = 0
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
 var can_fire = true
-var rate_of_fire = 0.5
+var rate_of_fire = 0.4
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D
@@ -33,11 +34,26 @@ var rate_of_fire = 0.5
 @onready var weapon = $HandAnchor/Shooter/Weapon
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
 @onready var health_ui  = $UI/Hearts
+@onready var score_label = $UI/ScoreLabel
+@onready var highscore_label = $UI/HiScoreLabel
 
 func _ready():
 	regen_timer.stop()
 	add_to_group("Player") # Add player to the "Player" group
 	update_health_ui()
+	update_score_label()
+	
+# Update the score UI based on the current score
+func update_score_label():
+	score_label.text = "Score: %d" % Global.score
+	highscore_label.text = "High Score: %d" % Global.highscore
+	
+# Method to increment score and update UI
+func increment_score():
+	Global.score += 1
+	Global.check_highscore()
+	update_score_label()
+	print("Score incremented to: ", Global.score)
 	
 # Called every frame
 func _process(delta):
@@ -199,6 +215,9 @@ func die():
 	animated_sprite.play("die")
 	velocity = Vector2(0, 300)  # Initial downward velocity
 	print("Player died")
+	Global.reset_score()
+	update_score_label()
+	print("Score reset to: ", Global.score)
 
 # Update the health UI based on the current health
 func update_health_ui():

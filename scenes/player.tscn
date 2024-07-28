@@ -406,6 +406,19 @@ offset_bottom = 50.0
 texture = ExtResource("2_n3ycu")
 stretch_mode = 1
 
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 5.0
+offset_top = 47.0
+offset_right = 45.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 50
+
+[node name="HiScoreLabel" type="Label" parent="UI"]
+offset_left = 7.0
+offset_top = 118.0
+offset_right = 47.0
+offset_bottom = 141.0
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_r44iu")
