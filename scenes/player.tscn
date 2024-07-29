@@ -451,7 +451,7 @@ script = ExtResource("3_apwp3")
 
 [node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
 position = Vector2(-7, -1)
-rotation = 0.428872
+rotation = 0.535051
 scale = Vector2(-0.287, 0.3)
 texture = SubResource("AtlasTexture_e0qty")
 

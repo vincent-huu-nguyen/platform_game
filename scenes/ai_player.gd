@@ -140,6 +140,7 @@ func handle_shooting():
 		var shoot_chance = max(1.0 * (health / MAX_HEALTH), min_shoot_chance)  # Dynamic shooting chance based on health
 		if randf() < shoot_chance:
 			can_fire = false
+			weapon.visible = false
 			var projectile_instance = projectile.instantiate()
 	
 			projectile_instance.position = shooter.global_position
@@ -153,6 +154,7 @@ func handle_shooting():
 
 func _on_fire_timer_timeout():
 	can_fire = true
+	weapon.visible = true
 
 # Handles dashing mechanics
 func handle_dashing():

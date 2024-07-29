@@ -9,14 +9,14 @@ gravity_scale = 0.0
 script = ExtResource("1_xf3xw")
 
 [node name="dmgzone" parent="." instance=ExtResource("2_4j3lg")]
+metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="dmgzone"]
-position = Vector2(-6, -3)
+position = Vector2(-8, 0)
 scale = Vector2(0.785326, 1)
 polygon = PackedVector2Array(6.36678, -1, 22.9204, 0, 12.7336, 2, -1.27336, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -3)
 scale = Vector2(0.296875, 0.296875)
 texture = ExtResource("1_lly5r")
 hframes = 8
@@ -32,7 +32,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
-position = Vector2(-6, -3)
+position = Vector2(-8, 0)
 scale = Vector2(0.785326, 1)
 polygon = PackedVector2Array(6.36678, -1, 22.9204, 0, 12.7336, 2, -1.27336, 1)
 

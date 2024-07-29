@@ -151,6 +151,7 @@ func aim_shooter():
 func handle_shooting():
 	if Input.is_action_pressed("shoot") and can_fire:
 		can_fire = false
+		weapon.visible = false
 		var projectile_instance = projectile.instantiate()
 		
 		# Spawn projectile at shooter's position with its rotation
@@ -168,6 +169,7 @@ func handle_shooting():
 # Called when fire timer times out to allow firing again
 func _on_fire_timer_timeout():
 	can_fire = true
+	weapon.visible = true
 
 # Handles dashing mechanics
 func handle_dashing():
