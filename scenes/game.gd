@@ -5,6 +5,9 @@ var is_paused = false
 @onready var stuckTimer = $if_stuck_timer
 @onready var pauseMenu = $CanvasLayer/PauseMenu
 
+func _ready():
+	Engine.time_scale = 1.0
+
 func _process(delta): # doesnt work idk why
 	if Engine.time_scale == 0.5:
 		if not stuckTimer.is_stopped():

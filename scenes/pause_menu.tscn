@@ -6,23 +6,31 @@
 process_mode = 3
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_urnyd")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 416.0
+offset_left = 408.0
 offset_top = 248.0
-offset_right = 734.0
+offset_right = 744.0
 offset_bottom = 392.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 314.0
+offset_right = 328.0
 offset_bottom = 136.0
 
 [node name="Resume" type="Button" parent="Panel/VBoxContainer"]
@@ -40,6 +48,7 @@ text = "Quit"
 [node name="If_Stuck" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "If you are stuck on a level, press \"Enter\""
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Restart" to="." method="_on_restart_pressed"]

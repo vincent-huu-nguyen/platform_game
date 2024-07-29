@@ -55,19 +55,26 @@ text = "Quit"
 
 [node name="Credits" type="Control" parent="."]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="Credits"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 456.0
-offset_top = 226.0
-offset_right = 658.0
-offset_bottom = 377.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -72.0
+offset_right = 104.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_2eprm")
@@ -79,37 +86,56 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.5
-offset_top = -20.0
-offset_right = 100.5
-offset_bottom = 20.0
+offset_left = -97.0
+offset_top = -22.5
+offset_right = 102.0
+offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="Credits/Panel/HBoxContainer"]
 layout_mode = 2
 text = "Developed by Cents808"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CloseCredits" type="Button" parent="Credits"]
 layout_mode = 0
-offset_left = 679.0
-offset_top = 227.0
-offset_right = 697.0
-offset_bottom = 245.0
+offset_left = 80.0
+offset_top = -68.0
+offset_right = 98.0
+offset_bottom = -50.0
 theme = SubResource("Theme_sk50n")
 
 [node name="ModeSelect" type="Control" parent="."]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 56.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ModeSelect"]
-layout_mode = 0
-offset_left = 486.0
-offset_top = 256.0
-offset_right = 666.0
-offset_bottom = 392.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -92.0
+offset_right = 78.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Duels" type="Button" parent="ModeSelect/VBoxContainer"]
 layout_mode = 2
@@ -127,9 +153,18 @@ text = "Back"
 
 [node name="ai_HowToPlay" type="Control" parent="."]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="ai_HowToPlay"]
 layout_mode = 0
@@ -137,16 +172,25 @@ offset_left = 384.0
 offset_top = 24.0
 offset_right = 768.0
 offset_bottom = 576.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="ai_HowToPlay/Panel"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 16.0
-offset_right = 376.0
-offset_bottom = 536.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -271.5
+offset_right = 184.0
+offset_bottom = 271.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "HOW TO PLAY
 Your goal is to beat the AI.
-Each level gets more difficult.
+Difficulty increases as you score higher. 
+Your score resets when the AI defeats you.
 Remember to take a break from shooting
 to regenerate.
 (The AI may also do the same.)

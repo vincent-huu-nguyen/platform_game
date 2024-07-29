@@ -26,10 +26,13 @@ func _on_resume_pressed():
 
 func _on_restart_pressed():
 	Global.score = 0
+	Engine.time_scale = 1.0
 	resume()
 	get_tree().reload_current_scene()
 
 
 func _on_quit_pressed():
+	Engine.time_scale = 1.0
+	Global.permanant_buff = false
 	resume()
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

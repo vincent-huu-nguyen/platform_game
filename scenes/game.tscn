@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dqmm38hc0856e"]
+[gd_scene load_steps=17 format=3 uid="uid://dqmm38hc0856e"]
 
 [ext_resource type="PackedScene" uid="uid://cfapitvkmf6j6" path="res://scenes/player.tscn" id="1_5wl22"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_n0b76"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bhluq3c4neyx" path="res://scenes/ai_player.tscn" id="4_8hfr1"]
 [ext_resource type="PackedScene" uid="uid://ca22r4ex4tvt6" path="res://scenes/killzone.tscn" id="5_6q0d1"]
 [ext_resource type="PackedScene" uid="uid://dthspgq755dk5" path="res://scenes/slime.tscn" id="6_ew4e5"]
+[ext_resource type="PackedScene" uid="uid://elfk106j2s4k" path="res://scenes/pause_menu.tscn" id="9_gxbrg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rc57t"]
 texture = ExtResource("2_7vy1e")
@@ -525,6 +526,10 @@ shape = SubResource("RectangleShape2D_jqvc4")
 [node name="if_stuck_timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_gxbrg")]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="if_stuck_timer" to="." method="_on_if_stuck_timer_timeout"]
