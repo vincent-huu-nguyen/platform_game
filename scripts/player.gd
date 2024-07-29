@@ -19,10 +19,12 @@ var can_dash = true
 var health = MAX_HEALTH
 var is_dead = false
 var is_invincible = false
+#var is_melee = false
 var score = 0
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
+#var melee = preload("res://scenes/melee.tscn")
 var can_fire = true
 var rate_of_fire = 0.4
 
@@ -33,6 +35,7 @@ var rate_of_fire = 0.4
 @onready var hand_anchor = $HandAnchor
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
+#@onready var melee_weapon = $HandAnchor/Melee
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
 @onready var health_ui  = $AnimatedSprite2D/Hearts
 @onready var score_label = $UI/ScoreLabel
@@ -45,6 +48,14 @@ func _ready():
 	update_score_label()
 	if Global.permanant_buff == true: # bonus buff
 		rate_of_fire = 0.1
+	#melee_weapon.visible = false  # Hide melee weapon initially
+	#melee_weapon.set_process(false)  # Disable melee weapon processing
+	#melee_weapon.set_physics_process(false)  # Disable melee weapon physics processing
+	
+	#var collision_shapes = melee_weapon.get_tree().get_nodes_in_group("meleezone")
+	#for shape in collision_shapes:
+		#if shape is Area2D:
+			#shape.disabled = true
 	
 # Update the score UI based on the current score
 func update_score_label():
@@ -72,8 +83,12 @@ func _process(delta):
 	else:
 		# Handle aiming, shooting, and dashing
 		aim_shooter()
+	#	aim_melee()
 		handle_shooting()
 		handle_dashing()
+		
+	#if Input.is_action_just_pressed("swap_weapon"):
+		#switch_weapon()
 
 # Called every physics frame
 func _physics_process(delta):
@@ -171,6 +186,25 @@ func _on_fire_timer_timeout():
 	can_fire = true
 	weapon.visible = true
 
+#func switch_weapon():
+	#is_melee = !is_melee
+	#can_fire = !can_fire
+	#melee_weapon.visible = is_melee
+	#weapon.visible = !is_melee
+	#melee_weapon.set_process(is_melee)
+	#melee_weapon.set_physics_process(is_melee)
+	#shooter.visible = !is_melee
+
+#func aim_melee():
+	#var mouse_position = get_global_mouse_position()
+	#var hand_anchor_position = hand_anchor.get_global_position()
+	#var direction = (mouse_position - hand_anchor_position).normalized()
+	#var offset_distance = 20  # Distance from hand anchor to melee
+	
+	## Update shooter's position and rotation
+	#melee_weapon.position = direction * offset_distance
+	#melee_weapon.rotation = direction.angle()
+
 # Handles dashing mechanics
 func handle_dashing():
 	if Input.is_action_just_pressed("dash") and can_dash:
@@ -240,3 +274,4 @@ func update_health_ui():
 func buff(): # bonus buff
 	rate_of_fire = 0.1
 	Global.perma_buff()
+

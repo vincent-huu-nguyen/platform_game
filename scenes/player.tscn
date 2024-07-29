@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://cfapitvkmf6j6"]
+[gd_scene load_steps=59 format=3 uid="uid://cfapitvkmf6j6"]
 
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="1_2sxm1"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t3c8r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="3_apwp3"]
 [ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="3_d032w"]
 [ext_resource type="Texture2D" uid="uid://bimpqwl2887gs" path="res://assets/sprites/heartbar.png" id="3_qf7hw"]
+[ext_resource type="PackedScene" uid="uid://bb05b7lsv1o8y" path="res://scenes/melee.tscn" id="7_qvxya"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2s71i"]
 atlas = ExtResource("1_2sxm1")
@@ -455,6 +456,11 @@ rotation = 0.535051
 scale = Vector2(-0.287, 0.3)
 texture = SubResource("AtlasTexture_e0qty")
 
+[node name="Melee" parent="HandAnchor" instance=ExtResource("7_qvxya")]
+visible = false
+position = Vector2(14, -1)
+
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]
+[connection signal="body_entered" from="HandAnchor/Melee" to="." method="_on_melee_body_entered"]

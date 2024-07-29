@@ -195,7 +195,7 @@ func die():
 	velocity = Vector2(0, 300)
 	
 	# Notify the player that the AI has died
-	var player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
+	player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
 	if player:
 		player.increment_score()
 		player.is_invincible = true

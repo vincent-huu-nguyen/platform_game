@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb05b7lsv1o8y"]
+
+[ext_resource type="PackedScene" uid="uid://csobc2qu5k2wo" path="res://scenes/meleezone.tscn" id="1_aj0b5"]
+[ext_resource type="Script" path="res://scenes/melee.gd" id="1_e8ew2"]
+[ext_resource type="Texture2D" uid="uid://dins65373pb5h" path="res://assets/sprites/ice_spear.png" id="3_elcik"]
+
+[node name="Melee" type="Area2D"]
+script = ExtResource("1_e8ew2")
+
+[node name="meleezone" parent="." instance=ExtResource("1_aj0b5")]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="meleezone"]
+position = Vector2(-8, 0)
+scale = Vector2(0.785326, 1)
+polygon = PackedVector2Array(6.36678, -1, 22.9204, 0, 12.7336, 2, -1.27336, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("3_elcik")
+hframes = 8
+vframes = 8
+frame = 32
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
+position = Vector2(-8, 0)
+scale = Vector2(0.785326, 1)
+polygon = PackedVector2Array(6.36678, -1, 22.9204, 0, 12.7336, 2, -1.27336, 1)

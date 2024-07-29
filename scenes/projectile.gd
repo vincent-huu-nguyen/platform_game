@@ -1,5 +1,5 @@
-extends RigidBody2D
 class_name Projectile
+extends RigidBody2D
 
 var initial_velocity: float = 300.0
 var life_time: float = 2.0
