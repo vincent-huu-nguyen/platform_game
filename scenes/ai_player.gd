@@ -23,7 +23,7 @@ var is_invincible = false
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
-var can_fire = true
+var can_fire = false
 var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.2
 
 # Onready variables to cache node references

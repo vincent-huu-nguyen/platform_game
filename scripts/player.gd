@@ -5,7 +5,7 @@ extends CharacterBody2D
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const DASH_SPEED = 450.0
-const DASH_DURATION = 0.1
+const DASH_DURATION = 0.13
 const DASH_COOLDOWN = 1.0
 const MAX_HEALTH = 5
 const REGEN_INTERVAL = 2.0
@@ -17,6 +17,7 @@ var is_dashing = false
 var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
+var is_damaged = false
 var is_dead = false
 var is_invincible = false
 #var is_melee = false
@@ -30,6 +31,9 @@ var rate_of_fire = 0.4
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var normal_collision = $CollisionShape2D
+@onready var crouch_collision = $CrouchColShape2D
+@onready var dash_collision = $DashColShape2D
 @onready var fire_timer = $FireTimer
 @onready var dash_cooldown_timer = $DashCooldown # Timer node for dash cooldown
 @onready var hand_anchor = $HandAnchor
@@ -97,7 +101,12 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		move_and_slide()
 		return
-	if not is_dashing:
+		
+	if is_dashing:
+		normal_collision.disabled = true
+		crouch_collision.disabled = true
+		dash_collision.disabled = false
+	else:
 		# Apply gravity if not on the floor
 		if not is_on_floor():
 			velocity.y += gravity * delta
@@ -126,22 +135,41 @@ func _physics_process(delta):
 			if direction == 0:
 				if animated_sprite.animation != "damaged":
 					animated_sprite.play("idle")
+					
+					if Input.is_action_pressed("crouch"):
+						animated_sprite.play("crouch")
+						normal_collision.disabled = true
+						crouch_collision.disabled = false
+						dash_collision.disabled = true
+					else:
+						normal_collision.disabled = false
+						crouch_collision.disabled = true
+						dash_collision.disabled = true
+					
+					
 			else:
 				if animated_sprite.animation != "damaged":
-					animated_sprite.play("run")
+					if Input.is_action_pressed("crouch"):
+						animated_sprite.play("crawl")
+						normal_collision.disabled = true
+						crouch_collision.disabled = false
+						dash_collision.disabled = true
+					else:
+						animated_sprite.play("run")
+						normal_collision.disabled = false
+						crouch_collision.disabled = true
+						dash_collision.disabled = true
 				
 			if Input.is_action_pressed("jump"):
 				animated_sprite.play("jump")
 			
-			if Input.is_action_pressed("crouch"):
-				animated_sprite.play("crouch")
 		else:
 			if !can_doublejump:
 				animated_sprite.play("midair")
 		
-		# Apply movement input or stop if crouching
+		# Apply movement input or slows if crouching
 		if Input.is_action_pressed("crouch") and is_on_floor():
-			velocity.x = 0
+			velocity.x = direction * (SPEED / 3)
 		else:    
 			if direction:
 				velocity.x = direction * SPEED
@@ -210,11 +238,18 @@ func handle_dashing():
 	if Input.is_action_just_pressed("dash") and can_dash:
 		is_dashing = true
 		can_dash = false
+		animated_sprite.play("dash")
 		dash_timer = DASH_DURATION
 		
 		# Determine dash direction based on mouse position
 		var mouse_position = get_global_mouse_position()
 		var direction = 1 if mouse_position.x > global_position.x else -1
+		
+		if direction > 0:
+			animated_sprite.flip_h = false
+		elif direction < 0:
+			animated_sprite.flip_h = true
+			
 		# Set dash velocity
 		velocity = Vector2(direction * DASH_SPEED, 0)
 		
@@ -238,6 +273,7 @@ func _on_regen_timer_timeout():
 # Method to decrease health
 func take_damage(amount):
 	health -= amount
+	is_damaged = true
 	animated_sprite.play("damaged")
 	update_health_ui()
 	print("Health decreased to: ", health)
@@ -249,9 +285,13 @@ func take_damage(amount):
 			regen_timer.stop()
 		regen_timer.start(REGEN_INTERVAL)
 		
+
 func die():
 	is_dead = true
 	animated_sprite.play("die")
+	normal_collision.disabled = false
+	crouch_collision.disabled = true
+	dash_collision.disabled = true
 	velocity = Vector2(0, 300)  # Initial downward velocity
 	print("Player died")
 	
@@ -275,3 +315,10 @@ func buff(): # bonus buff
 	rate_of_fire = 0.1
 	Global.perma_buff()
 
+func _on_animated_sprite_2d_animation_finished():
+	if animated_sprite.animation == "damaged":
+		is_damaged = false
+		animated_sprite.play("idle")
+		
+	if animated_sprite.animation == "dash":
+		animated_sprite.play("idle")

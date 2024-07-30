@@ -39,7 +39,9 @@ func _on_body_entered(body):
 				ko_sound_player.play()  # Play KO sound
 				print("player died...")
 				Engine.time_scale = 0.5  # Slow down the game to half speed
-				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shape
+				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shapes
+				body.get_node("CrouchColShape2D").queue_free()
+				body.get_node("DashColShape2D").queue_free()
 				respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
 			start_damage_cooldown()  # Start the cooldown timer
 		
