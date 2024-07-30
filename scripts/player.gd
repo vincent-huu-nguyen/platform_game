@@ -28,7 +28,7 @@ var score = 0
 var projectile = preload("res://scenes/projectile.tscn")
 #var melee = preload("res://scenes/melee.tscn")
 var can_fire = true
-var rate_of_fire = 0.4
+var rate_of_fire = 0.5
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D
@@ -219,8 +219,9 @@ func handle_shooting():
 			charge_timer.stop()
 			charge_timer.start()
 			get_parent().add_child(projectile_instance)
+			
 		print("Projectile instantiated at: ", projectile_instance.position, " with rotation: ", projectile_instance.rotation)
-		fire_timer.start(rate_of_fire)
+		fire_timer.start(rate_of_fire)  # start reload timer
 		
 		# Restart health regeneration timer when shooting to prevent spam
 		if not regen_timer.is_stopped():

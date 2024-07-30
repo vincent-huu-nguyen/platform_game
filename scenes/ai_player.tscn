@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bhluq3c4neyx"]
+[gd_scene load_steps=61 format=3 uid="uid://bhluq3c4neyx"]
 
 [ext_resource type="Script" path="res://scenes/ai_player.gd" id="1_7x53n"]
 [ext_resource type="Texture2D" uid="uid://dvdd50awufap" path="res://assets/sprites/PurpleRedPanda.png" id="3_0r0dv"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="3_s4wpr"]
 [ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="4_6fjx0"]
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="5_0paxn"]
+[ext_resource type="Texture2D" uid="uid://coujujmbt7j61" path="res://assets/sprites/Bamboos.png" id="7_hlr2v"]
 [ext_resource type="Texture2D" uid="uid://6dfyh10lqqd0" path="res://assets/sprites/YellowBamboo.png" id="7_kvinc"]
+[ext_resource type="AudioStream" uid="uid://4b7jthykmxs1" path="res://assets/sounds/power_up.wav" id="9_7i62m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5n6m"]
 atlas = ExtResource("3_0r0dv")
@@ -390,6 +392,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xux5c"]
 size = Vector2(11, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r6no"]
+atlas = ExtResource("7_hlr2v")
+region = Rect2(0, 64, 32, 32)
+
 [node name="AIPlayer" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 3
@@ -423,6 +429,9 @@ shape = SubResource("RectangleShape2D_xux5c")
 [node name="FireTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="DashCooldown" type="Timer" parent="."]
 one_shot = true
 
@@ -438,10 +447,18 @@ script = ExtResource("4_6fjx0")
 position = Vector2(20, 0)
 script = ExtResource("5_0paxn")
 
+[node name="ChargedWeapon" type="Sprite2D" parent="HandAnchor/Shooter"]
+position = Vector2(-6, 0)
+texture = SubResource("AtlasTexture_4r6no")
+
 [node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
 position = Vector2(-6, 0)
 texture = ExtResource("7_kvinc")
 
+[node name="Charged" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_7i62m")
+
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]

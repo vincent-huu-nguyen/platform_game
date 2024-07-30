@@ -25,23 +25,26 @@ var is_invincible = false
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
 var can_fire = true
-var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.2
+var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.1
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var fire_timer = $FireTimer
+@onready var charge_timer = $ChargeTimer
 @onready var dash_cooldown_timer = $DashCooldown # Timer node for dash cooldown
 @onready var hand_anchor = $HandAnchor
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
 @onready var health_ui = $AnimatedSprite2D/Hearts
+@onready var charged_sound_player = $Charged
 
 # Reference to the player node
 var player = null
 
 func _ready():
 	regen_timer.stop()
+	charge_timer.start()
 	add_to_group("AIPlayer") # Add AI to the "AIPlayer" group
 	update_health_ui()
 	player = get_tree().root.get_node("Game/Player") # Adjust path to player node
@@ -141,14 +144,26 @@ func handle_shooting():
 		var shoot_chance = max(1.0 * (health / MAX_HEALTH), min_shoot_chance)  # Dynamic shooting chance based on health
 		if randf() < shoot_chance:
 			can_fire = false
-			weapon.visible = false
+			shooter.visible = false
 			var projectile_instance = projectile.instantiate()
 	
 			projectile_instance.position = shooter.global_position
 			projectile_instance.rotation = shooter.rotation
 			projectile_instance.wielder = self
 			projectile_instance.get_node("dmgzone").wielder = self  # Set the owner to the player
-			get_parent().add_child(projectile_instance)
+			if is_charged:
+				weapon.visible = true
+				projectile_instance.initial_velocity = 750.0  # altering variables from other scenes
+				projectile_instance.life_time = 1.0
+				projectile_instance.get_node("dmgzone").damage = 3
+				get_parent().add_child(projectile_instance)
+				is_charged = false
+				charge_timer.start()
+			else:
+				charge_timer.stop()
+				charge_timer.start()
+				get_parent().add_child(projectile_instance)
+				
 			fire_timer.start(rate_of_fire)
 
 			if not regen_timer.is_stopped():
@@ -157,7 +172,7 @@ func handle_shooting():
 
 func _on_fire_timer_timeout():
 	can_fire = true
-	weapon.visible = true
+	shooter.visible = true
 
 # Handles dashing mechanics
 func handle_dashing():
@@ -194,7 +209,7 @@ func take_damage(amount):
 
 func die():
 	is_dead = true
-	weapon.visible = false
+	shooter.visible = false
 	animated_sprite.play("die")
 	velocity = Vector2(0, 300)
 	
@@ -209,3 +224,11 @@ func update_health_ui():
 		health_ui.visible = 0
 	else:
 		health_ui.size.x = health * 10
+
+
+func _on_charge_timer_timeout():
+	is_charged = true
+	weapon.visible = false
+	charged_sound_player.play()
+	charge_timer.stop()
+	print("Charging Complete")

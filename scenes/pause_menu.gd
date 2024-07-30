@@ -18,6 +18,12 @@ func testEsc():
 		pause()
 	elif Input.is_action_just_pressed("pause") and get_tree().paused:
 		resume()
+	
+	if Input.is_action_just_pressed("reset"):
+		Engine.time_scale = 1.0
+		resume()
+		get_tree().reload_current_scene()
+
 
 
 func _on_resume_pressed():
