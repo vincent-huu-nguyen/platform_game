@@ -40,6 +40,7 @@ func _on_body_entered(body):
 		if body.is_in_group("Player") and not body.is_invincible:
 			body.take_damage(damage)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound
+			can_damage = false  # hurts on first contact only
 			# Check if the player's health is zero
 			if body.health <= 0:
 				ko_sound_player.play()  # Play KO sound
@@ -51,9 +52,10 @@ func _on_body_entered(body):
 				respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
 			start_damage_cooldown()  # Start the cooldown timer
 		
-		if body.is_in_group("AIPlayer") and not body.is_invincible:
+		elif body.is_in_group("AIPlayer") and not body.is_invincible:
 			body.take_damage(damage)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound
+			can_damage = false
 			# Check if the player's health is zero
 			if body.health <= 0:
 				ko_sound_player.play()  # Play KO sound
@@ -62,6 +64,7 @@ func _on_body_entered(body):
 				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shape
 				respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
 			start_damage_cooldown()  # Start the cooldown timer
+			
 
 func start_damage_cooldown():
 	can_damage = false
