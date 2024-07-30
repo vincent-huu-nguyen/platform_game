@@ -41,6 +41,9 @@ text = "Resume"
 layout_mode = 2
 text = "Restart (to score: 0)"
 
+[node name="Settings" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
 [node name="Quit" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Quit"

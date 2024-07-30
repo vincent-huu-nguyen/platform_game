@@ -6,6 +6,7 @@ var stage_one = "res://scenes/game.tscn"
 @onready var credits = $CanvasLayer/Credits
 @onready var modes = $CanvasLayer/ModeSelect
 @onready var ai_instructions = $CanvasLayer/ai_HowToPlay
+@onready var input_settings = $CanvasLayer/InputSettings
 
 
 func _on_play_pressed():
@@ -13,7 +14,8 @@ func _on_play_pressed():
 	modes.show()
 
 func _on_settings_pressed():
-	pass # Replace with function body.
+	mainmenu.hide()
+	input_settings.show()
 
 
 func _on_credits_pressed():

@@ -169,31 +169,31 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("4_sdkfk")
 region = Rect2(128, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xnif4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2g33r"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(32, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ldyxa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4bia"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(64, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e7i68"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo68x"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(96, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6r0mn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb5vd"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(128, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f5ggq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xpd8"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(160, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2bphv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkr6e"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(192, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j7h85"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb1re"]
 atlas = ExtResource("1_2sxm1")
 region = Rect2(224, 160, 32, 32)
 
@@ -397,25 +397,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xnif4")
+"texture": SubResource("AtlasTexture_2g33r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ldyxa")
+"texture": SubResource("AtlasTexture_r4bia")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e7i68")
+"texture": SubResource("AtlasTexture_mo68x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6r0mn")
+"texture": SubResource("AtlasTexture_hb5vd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f5ggq")
+"texture": SubResource("AtlasTexture_7xpd8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2bphv")
+"texture": SubResource("AtlasTexture_jkr6e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_j7h85")
+"texture": SubResource("AtlasTexture_xb1re")
 }],
 "loop": false,
 "name": &"land",
@@ -565,6 +565,7 @@ position = Vector2(14, -1)
 position = Vector2(13.9994, -6.12408)
 rotation = -0.00886326
 stream = ExtResource("12_agbfk")
+bus = &"Sound"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
