@@ -17,6 +17,7 @@ var is_dashing = false
 var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
+var is_charged = false
 var is_damaged = false
 var is_dead = false
 var is_invincible = false
@@ -35,18 +36,22 @@ var rate_of_fire = 0.4
 @onready var crouch_collision = $CrouchColShape2D
 @onready var dash_collision = $DashColShape2D
 @onready var fire_timer = $FireTimer
+@onready var charge_timer = $ChargeTimer
 @onready var dash_cooldown_timer = $DashCooldown # Timer node for dash cooldown
 @onready var hand_anchor = $HandAnchor
 @onready var shooter = $HandAnchor/Shooter
 @onready var weapon = $HandAnchor/Shooter/Weapon
+@onready var charged_weapon = $HandAnchor/Shooter/ChargedWeapon
 #@onready var melee_weapon = $HandAnchor/Melee
 @onready var regen_timer = $RegenTimer # Timer node for health regeneration
 @onready var health_ui  = $AnimatedSprite2D/Hearts
 @onready var score_label = $UI/ScoreLabel
 @onready var highscore_label = $UI/HiScoreLabel
+@onready var charged_sound_player = $Charged
 
 func _ready():
 	regen_timer.stop()
+	charge_timer.start()
 	add_to_group("Player") # Add player to the "Player" group
 	update_health_ui()
 	update_score_label()
@@ -194,7 +199,7 @@ func aim_shooter():
 func handle_shooting():
 	if Input.is_action_pressed("shoot") and can_fire:
 		can_fire = false
-		weapon.visible = false
+		shooter.visible = false
 		var projectile_instance = projectile.instantiate()
 		
 		# Spawn projectile at shooter's position with its rotation
@@ -202,7 +207,18 @@ func handle_shooting():
 		projectile_instance.rotation = shooter.rotation
 		projectile_instance.wielder = self
 		projectile_instance.get_node("dmgzone").wielder = self  # Set the owner to the player
-		get_parent().add_child(projectile_instance)
+		if is_charged:
+			weapon.visible = true
+			projectile_instance.initial_velocity = 750.0  # altering variables from other scenes
+			projectile_instance.life_time = 1.0
+			projectile_instance.get_node("dmgzone").damage = 3
+			get_parent().add_child(projectile_instance)
+			is_charged = false
+			charge_timer.start()
+		else:
+			charge_timer.stop()
+			charge_timer.start()
+			get_parent().add_child(projectile_instance)
 		print("Projectile instantiated at: ", projectile_instance.position, " with rotation: ", projectile_instance.rotation)
 		fire_timer.start(rate_of_fire)
 		
@@ -214,7 +230,7 @@ func handle_shooting():
 # Called when fire timer times out to allow firing again
 func _on_fire_timer_timeout():
 	can_fire = true
-	weapon.visible = true
+	shooter.visible = true
 
 #func switch_weapon():
 	#is_melee = !is_melee
@@ -290,7 +306,7 @@ func take_damage(amount):
 
 func die():
 	is_dead = true
-	weapon.visible = false
+	shooter.visible = false
 	animated_sprite.play("die")
 	#normal_collision.disabled = false  ## Not needed I guess
 	#crouch_collision.disabled = true
@@ -325,3 +341,11 @@ func _on_animated_sprite_2d_animation_finished():
 		
 	if animated_sprite.animation == "dash":
 		animated_sprite.play("idle")
+
+# Faster velocity
+func _on_charge_timer_timeout():
+	is_charged = true
+	weapon.visible = false
+	charged_sound_player.play()
+	charge_timer.stop()
+	print("Charging Complete")

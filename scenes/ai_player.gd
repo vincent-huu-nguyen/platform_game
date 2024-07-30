@@ -18,6 +18,7 @@ var is_dashing = false
 var dash_timer = 0.0
 var can_dash = true
 var health = MAX_HEALTH
+var is_charged = false
 var is_dead = false
 var is_invincible = false
 

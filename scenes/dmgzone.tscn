@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmnelj3bvcndp"]
 
 [ext_resource type="Script" path="res://scenes/dmgzone.gd" id="1_8jun3"]
-[ext_resource type="AudioStream" uid="uid://cjtcxjyaq2043" path="res://assets/sounds/hurt.wav" id="2_rihu6"]
+[ext_resource type="AudioStream" uid="uid://by0cymfnrspdl" path="res://assets/sounds/tap.wav" id="2_6t1a1"]
 [ext_resource type="AudioStream" uid="uid://cq41reo5gnwxr" path="res://assets/sounds/explosion.wav" id="3_wagb7"]
 
 [node name="dmgzone" type="Area2D"]
@@ -15,7 +15,7 @@ one_shot = true
 one_shot = true
 
 [node name="DamagedSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_rihu6")
+stream = ExtResource("2_6t1a1")
 bus = &"Sound"
 
 [node name="KOsound" type="AudioStreamPlayer2D" parent="."]

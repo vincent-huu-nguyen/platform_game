@@ -16,7 +16,11 @@ const DAMAGE_COOLDOWN = 0.5
 # Flag to track if damage can be applied
 var can_damage = true
 
+# Can be altered through ownership(referencing)
+var damage = 1
+
 var wielder = null
+
 
 func _ready():
 	# Called when the node is added to the scene
@@ -34,7 +38,7 @@ func _on_body_entered(body):
 	# Called when another body enters the Area2D's collision area
 	if can_damage and body != wielder: # Check if the body is not the owner
 		if body.is_in_group("Player") and not body.is_invincible:
-			body.take_damage(1)  # Inflicts damage to the player
+			body.take_damage(damage)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound
 			# Check if the player's health is zero
 			if body.health <= 0:
@@ -48,7 +52,7 @@ func _on_body_entered(body):
 			start_damage_cooldown()  # Start the cooldown timer
 		
 		if body.is_in_group("AIPlayer") and not body.is_invincible:
-			body.take_damage(1)  # Inflicts damage to the player
+			body.take_damage(damage)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound
 			# Check if the player's health is zero
 			if body.health <= 0:

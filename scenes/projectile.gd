@@ -9,6 +9,9 @@ var damage: float = 1.0
 @onready var timer  = $RespawnTimer
 @onready var gbamboo = $BambooSprite
 @onready var ybamboo = $YBambooSprite
+@onready var rbamboo = $ChargedBambooSprite
+@onready var chargedshot_sound_player = $ChargedShot
+@onready var shoot_sound_player = $Shoot
 
 var wielder = null
 
@@ -16,13 +19,20 @@ func _ready() -> void:
 	
 	gbamboo.visible = false
 	ybamboo.visible = false
+	rbamboo.visible = false
+	
 	
 	# Switches weapon sprites depending on the wielder
 	print("Wielder: ", wielder.name)
-	if wielder.name == "Player":
-		gbamboo.visible = true
-	elif wielder.name == "AIPlayer":
-		ybamboo.visible = true
+	if wielder.is_charged == true:
+		rbamboo.visible = true
+		chargedshot_sound_player.play()
+	else:
+		if wielder.name == "Player":
+			gbamboo.visible = true
+		elif wielder.name == "AIPlayer":
+			ybamboo.visible = true
+		shoot_sound_player.play()
 	
 	# Convert rotation from radians to direction vector
 	var direction = Vector2(1, 0).rotated(rotation)

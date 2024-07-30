@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2oqpyj5c37w8"]
+[gd_scene load_steps=9 format=3 uid="uid://d2oqpyj5c37w8"]
 
 [ext_resource type="Script" path="res://scenes/projectile.gd" id="1_xf3xw"]
 [ext_resource type="PackedScene" uid="uid://bmnelj3bvcndp" path="res://scenes/dmgzone.tscn" id="2_4j3lg"]
 [ext_resource type="Texture2D" uid="uid://dlnj7wpk2u1d7" path="res://assets/sprites/Bamboo.png" id="4_pjgcf"]
 [ext_resource type="Texture2D" uid="uid://6dfyh10lqqd0" path="res://assets/sprites/YellowBamboo.png" id="4_usnry"]
+[ext_resource type="Texture2D" uid="uid://coujujmbt7j61" path="res://assets/sprites/Bamboos.png" id="5_ui1vr"]
+[ext_resource type="AudioStream" uid="uid://cq41reo5gnwxr" path="res://assets/sounds/explosion.wav" id="6_vfa7p"]
+[ext_resource type="AudioStream" uid="uid://cjtcxjyaq2043" path="res://assets/sounds/hurt.wav" id="7_d2l2h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17wg2"]
+atlas = ExtResource("5_ui1vr")
+region = Rect2(0, 64, 32, 32)
 
 [node name="Projectile" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -20,6 +27,9 @@ texture = ExtResource("4_pjgcf")
 [node name="YBambooSprite" type="Sprite2D" parent="."]
 texture = ExtResource("4_usnry")
 
+[node name="ChargedBambooSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_17wg2")
+
 [node name="LifeTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -30,6 +40,14 @@ one_shot = true
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-9, -2, 9, -2, 6, 2, -9, 2)
+
+[node name="ChargedShot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_vfa7p")
+bus = &"Sound"
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_d2l2h")
+bus = &"Sound"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
