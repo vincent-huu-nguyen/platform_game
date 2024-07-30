@@ -2,10 +2,11 @@ extends Control
 
 var stage_one = "res://scenes/game.tscn"
 
-@onready var mainmenu = $MainMenu
-@onready var credits = $Credits
-@onready var modes = $ModeSelect
-@onready var ai_instructions = $ai_HowToPlay
+@onready var mainmenu = $CanvasLayer/MainMenu
+@onready var credits = $CanvasLayer/Credits
+@onready var modes = $CanvasLayer/ModeSelect
+@onready var ai_instructions = $CanvasLayer/ai_HowToPlay
+
 
 func _on_play_pressed():
 	mainmenu.hide()

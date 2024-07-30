@@ -403,6 +403,21 @@ texture = ExtResource("1_pybpt")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fur0o")
 
+[sub_resource type="Animation" id="Animation_kwt61"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(208, -56)]
+}
+
 [sub_resource type="Animation" id="Animation_4u8hj"]
 resource_name = "move"
 length = 3.0
@@ -418,21 +433,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(208, -56), Vector2(368, -56)]
-}
-
-[sub_resource type="Animation" id="Animation_kwt61"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(208, -56)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2nq5f"]

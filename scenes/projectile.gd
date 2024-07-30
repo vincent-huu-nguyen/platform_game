@@ -30,7 +30,7 @@ func _ready() -> void:
 	else:
 		if wielder.name == "Player":
 			gbamboo.visible = true
-		elif wielder.name == "AIPlayer":
+		elif wielder.name == "AIPlayer" or "MM_AIPlayer":
 			ybamboo.visible = true
 		shoot_sound_player.play()
 	
