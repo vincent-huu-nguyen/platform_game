@@ -145,6 +145,7 @@ func handle_shooting():
 	
 			projectile_instance.position = shooter.global_position
 			projectile_instance.rotation = shooter.rotation
+			projectile_instance.wielder = self
 			projectile_instance.get_node("dmgzone").wielder = self  # Set the owner to the player
 			get_parent().add_child(projectile_instance)
 			fire_timer.start(rate_of_fire)
@@ -192,6 +193,7 @@ func take_damage(amount):
 
 func die():
 	is_dead = true
+	weapon.visible = false
 	animated_sprite.play("die")
 	velocity = Vector2(0, 300)
 	

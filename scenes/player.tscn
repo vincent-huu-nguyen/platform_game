@@ -1,15 +1,15 @@
-[gd_scene load_steps=73 format=3 uid="uid://cfapitvkmf6j6"]
+[gd_scene load_steps=72 format=3 uid="uid://cfapitvkmf6j6"]
 
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="1_2sxm1"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t3c8r"]
 [ext_resource type="Texture2D" uid="uid://dt0ov85on0ki7" path="res://assets/sprites/Red Panda.png" id="2_ec1fn"]
 [ext_resource type="Texture2D" uid="uid://cc6jxektkldnj" path="res://assets/sprites/RedPanda(more).png" id="2_fp4hv"]
-[ext_resource type="Texture2D" uid="uid://dins65373pb5h" path="res://assets/sprites/ice_spear.png" id="3_7b5g3"]
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="3_apwp3"]
 [ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="3_d032w"]
 [ext_resource type="Texture2D" uid="uid://bimpqwl2887gs" path="res://assets/sprites/heartbar.png" id="3_qf7hw"]
 [ext_resource type="Texture2D" uid="uid://bfnm5hx7g6ttl" path="res://assets/sprites/RedPanda(1more).png" id="4_sdkfk"]
 [ext_resource type="PackedScene" uid="uid://bb05b7lsv1o8y" path="res://scenes/melee.tscn" id="7_qvxya"]
+[ext_resource type="Texture2D" uid="uid://dlnj7wpk2u1d7" path="res://assets/sprites/Bamboo.png" id="9_pit4r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wbmbf"]
 atlas = ExtResource("4_sdkfk")
@@ -472,10 +472,6 @@ size = Vector2(18, 11)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqdp7"]
 size = Vector2(18, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e0qty"]
-atlas = ExtResource("3_7b5g3")
-region = Rect2(392, 80, 48, 32)
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 3
@@ -499,7 +495,7 @@ theme_override_font_sizes/font_size = 30
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_r44iu")
-animation = &"idle"
+animation = &"midair"
 autoplay = "idle"
 
 [node name="Hearts" type="TextureRect" parent="AnimatedSprite2D"]
@@ -511,6 +507,7 @@ texture = ExtResource("3_qf7hw")
 stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_2c40g")
 
@@ -536,6 +533,7 @@ autostart = true
 
 [node name="HandAnchor" type="Node2D" parent="."]
 position = Vector2(0, -6)
+rotation = -0.00886326
 script = ExtResource("3_d032w")
 
 [node name="Shooter" type="Node2D" parent="HandAnchor"]
@@ -543,10 +541,8 @@ position = Vector2(20, 0)
 script = ExtResource("3_apwp3")
 
 [node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
-position = Vector2(-7, -1.19209e-07)
-rotation = 0.476056
-scale = Vector2(-0.287, 0.3)
-texture = SubResource("AtlasTexture_e0qty")
+position = Vector2(-6, 0)
+texture = ExtResource("9_pit4r")
 
 [node name="Melee" parent="HandAnchor" instance=ExtResource("7_qvxya")]
 visible = false

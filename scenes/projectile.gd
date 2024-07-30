@@ -7,8 +7,23 @@ var damage: float = 1.0
 
 @onready var life_timer = $LifeTimer
 @onready var timer  = $RespawnTimer
+@onready var gbamboo = $BambooSprite
+@onready var ybamboo = $YBambooSprite
+
+var wielder = null
 
 func _ready() -> void:
+	
+	gbamboo.visible = false
+	ybamboo.visible = false
+	
+	# Switches weapon sprites depending on the wielder
+	print("Wielder: ", wielder.name)
+	if wielder.name == "Player":
+		gbamboo.visible = true
+	elif wielder.name == "AIPlayer":
+		ybamboo.visible = true
+	
 	# Convert rotation from radians to direction vector
 	var direction = Vector2(1, 0).rotated(rotation)
 	

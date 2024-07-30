@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bhluq3c4neyx"]
+[gd_scene load_steps=58 format=3 uid="uid://bhluq3c4neyx"]
 
 [ext_resource type="Script" path="res://scenes/ai_player.gd" id="1_7x53n"]
 [ext_resource type="Texture2D" uid="uid://dvdd50awufap" path="res://assets/sprites/PurpleRedPanda.png" id="3_0r0dv"]
@@ -6,11 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="3_s4wpr"]
 [ext_resource type="Script" path="res://scenes/HandAnchor.gd" id="4_6fjx0"]
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="5_0paxn"]
-[ext_resource type="Texture2D" uid="uid://dins65373pb5h" path="res://assets/sprites/ice_spear.png" id="6_f5w3y"]
+[ext_resource type="Texture2D" uid="uid://6dfyh10lqqd0" path="res://assets/sprites/YellowBamboo.png" id="7_kvinc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2s71i"]
-atlas = ExtResource("3_s4wpr")
-region = Rect2(64, 160, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5n6m"]
+atlas = ExtResource("3_0r0dv")
+region = Rect2(192, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aojuc"]
 atlas = ExtResource("3_0r0dv")
@@ -204,20 +204,20 @@ region = Rect2(32, 64, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2s71i")
+"texture": SubResource("AtlasTexture_v5n6m")
 }],
 "loop": true,
 "name": &"crouch",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_aojuc")
 }, {
-"duration": 1.0,
+"duration": 0.4,
 "texture": SubResource("AtlasTexture_2irr4")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_pl2oa")
 }],
 "loop": false,
@@ -307,7 +307,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0xlwj")
 }, {
-"duration": 1.0,
+"duration": 0.2,
 "texture": SubResource("AtlasTexture_jcqk1")
 }, {
 "duration": 1.0,
@@ -347,7 +347,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_874xm")
 }, {
-"duration": 1.0,
+"duration": 0.2,
 "texture": SubResource("AtlasTexture_a1i1q")
 }, {
 "duration": 1.0,
@@ -390,10 +390,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xux5c"]
 size = Vector2(11, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e0qty"]
-atlas = ExtResource("6_f5w3y")
-region = Rect2(392, 80, 48, 32)
-
 [node name="AIPlayer" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 3
@@ -420,6 +416,7 @@ texture = ExtResource("3_dkrdo")
 stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_xux5c")
 
@@ -434,7 +431,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="HandAnchor" type="Node2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 script = ExtResource("4_6fjx0")
 
 [node name="Shooter" type="Node2D" parent="HandAnchor"]
@@ -442,10 +439,8 @@ position = Vector2(20, 0)
 script = ExtResource("5_0paxn")
 
 [node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
-position = Vector2(-7, -1)
-rotation = 0.428872
-scale = Vector2(-0.287, 0.3)
-texture = SubResource("AtlasTexture_e0qty")
+position = Vector2(-6, 0)
+texture = ExtResource("7_kvinc")
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]

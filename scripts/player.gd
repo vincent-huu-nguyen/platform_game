@@ -200,6 +200,7 @@ func handle_shooting():
 		# Spawn projectile at shooter's position with its rotation
 		projectile_instance.position = shooter.global_position
 		projectile_instance.rotation = shooter.rotation
+		projectile_instance.wielder = self
 		projectile_instance.get_node("dmgzone").wielder = self  # Set the owner to the player
 		get_parent().add_child(projectile_instance)
 		print("Projectile instantiated at: ", projectile_instance.position, " with rotation: ", projectile_instance.rotation)
@@ -289,6 +290,7 @@ func take_damage(amount):
 
 func die():
 	is_dead = true
+	weapon.visible = false
 	animated_sprite.play("die")
 	#normal_collision.disabled = false  ## Not needed I guess
 	#crouch_collision.disabled = true
