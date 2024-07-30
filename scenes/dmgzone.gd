@@ -76,4 +76,13 @@ func _on_respawn_timer_timeout():
 	# Called when the Timer's wait time elapses
 	print("RESPAWNED")  # Debug message to confirm the timer timeout function is called
 	Engine.time_scale = 1.0  # Restore the game speed to normal
-	get_tree().reload_current_scene()  # Reload the current scene to restart the game
+	
+	# random stage
+	var rand = randi_range(1, 3)
+	if rand == 1:
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
+	elif rand == 2:
+		get_tree().change_scene_to_file("res://scenes/stage2.tscn")
+	elif rand == 3:
+		get_tree().change_scene_to_file("res://scenes/stage3.tscn")
+	

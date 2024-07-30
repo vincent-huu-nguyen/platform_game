@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bh03r06bvl30o"]
+[gd_scene load_steps=13 format=3 uid="uid://bh03r06bvl30o"]
 
 [ext_resource type="Script" path="res://scenes/stage2.gd" id="1_fxesm"]
 [ext_resource type="Texture2D" uid="uid://cp7ykpjfj64q0" path="res://assets/sprites/world_tileset.png" id="1_pybpt"]
@@ -403,6 +403,44 @@ texture = ExtResource("1_pybpt")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fur0o")
 
+[sub_resource type="Animation" id="Animation_4u8hj"]
+resource_name = "move"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(208, -56), Vector2(368, -56)]
+}
+
+[sub_resource type="Animation" id="Animation_kwt61"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(208, -56)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2nq5f"]
+_data = {
+"RESET": SubResource("Animation_kwt61"),
+"move": SubResource("Animation_4u8hj")
+}
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fxesm")
 
@@ -433,7 +471,13 @@ position = Vector2(264, -316)
 [node name="Platforms" type="Node" parent="."]
 
 [node name="Platform" parent="Platforms" instance=ExtResource("5_wx8wk")]
-position = Vector2(288, -56)
+position = Vector2(208, -56)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform"]
+libraries = {
+"": SubResource("AnimationLibrary_2nq5f")
+}
+autoplay = "move"
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("5_wx8wk")]
 position = Vector2(208, -120)
