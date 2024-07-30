@@ -23,7 +23,7 @@ var is_invincible = false
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
-var can_fire = false
+var can_fire = true
 var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.2
 
 # Onready variables to cache node references
@@ -145,6 +145,7 @@ func handle_shooting():
 	
 			projectile_instance.position = shooter.global_position
 			projectile_instance.rotation = shooter.rotation
+			projectile_instance.get_node("dmgzone").wielder = self  # Set the owner to the player
 			get_parent().add_child(projectile_instance)
 			fire_timer.start(rate_of_fire)
 

@@ -16,6 +16,8 @@ const DAMAGE_COOLDOWN = 0.5
 # Flag to track if damage can be applied
 var can_damage = true
 
+var wielder = null
+
 func _ready():
 	# Called when the node is added to the scene
 	if respawn_timer:
@@ -30,7 +32,7 @@ func _ready():
 
 func _on_body_entered(body):
 	# Called when another body enters the Area2D's collision area
-	if can_damage:
+	if can_damage and body != wielder: # Check if the body is not the owner
 		if body.is_in_group("Player") and not body.is_invincible:
 			body.take_damage(1)  # Inflicts damage to the player
 			damaged_sound_player.play()  # Play damage sound

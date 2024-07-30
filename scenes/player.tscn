@@ -464,7 +464,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c40g"]
-size = Vector2(13, 20)
+size = Vector2(11, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukujk"]
 size = Vector2(18, 11)
@@ -499,7 +499,7 @@ theme_override_font_sizes/font_size = 30
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_r44iu")
-animation = &"dash"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="Hearts" type="TextureRect" parent="AnimatedSprite2D"]
@@ -515,10 +515,12 @@ position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_2c40g")
 
 [node name="CrouchColShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(2, -5.5)
 shape = SubResource("RectangleShape2D_ukujk")
 
 [node name="DashColShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(3, -8)
 shape = SubResource("RectangleShape2D_uqdp7")
 
@@ -533,7 +535,7 @@ wait_time = 3.0
 autostart = true
 
 [node name="HandAnchor" type="Node2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 script = ExtResource("3_d032w")
 
 [node name="Shooter" type="Node2D" parent="HandAnchor"]
@@ -541,8 +543,8 @@ position = Vector2(20, 0)
 script = ExtResource("3_apwp3")
 
 [node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
-position = Vector2(-7, -1)
-rotation = 0.535051
+position = Vector2(-7, -1.19209e-07)
+rotation = 0.476056
 scale = Vector2(-0.287, 0.3)
 texture = SubResource("AtlasTexture_e0qty")
 
