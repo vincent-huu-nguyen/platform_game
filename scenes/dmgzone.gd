@@ -1,10 +1,14 @@
 extends Area2D
 
 # Reference to the Timer node
-@onready var respawn_timer = $RespawnTimer
+#@onready var respawn_timer = $RespawnTimer
 
 # Cooldown timer to prevent repeated damage
 @onready var damage_cooldown_timer = $DmgCooldownTimer
+
+# In case Respawn Timer fails
+#@onready var press_enter = $CanvasLayer/PressEnter
+##@onready var enter_player = $CanvasLayer/PressEnter/AnimationPlayer
 
 # AudioStreamPlayer for damage sound and KO'd sound
 @onready var damaged_sound_player = $DamagedSound
@@ -21,13 +25,15 @@ var damage = 1
 
 var wielder = null
 
+signal all_bots_dead
 
 func _ready():
 	# Called when the node is added to the scene
-	if respawn_timer:
-		print("Timer node found")  # Debug message to confirm the Timer node is found
-	else:
-		print("Timer node is not found")  # Debug message if Timer node is missing
+	
+	#if respawn_timer:
+		#print("Timer node found")  # Debug message to confirm the Timer node is found
+	#else:
+		#print("Timer node is not found")  # Debug message if Timer node is missing
 	
 	if damage_cooldown_timer:
 		print("Damage cooldown timer found")
@@ -45,11 +51,12 @@ func _on_body_entered(body):
 			if body.health <= 0:
 				ko_sound_player.play()  # Play KO sound
 				print("player died...")
-				Engine.time_scale = 0.5  # Slow down the game to half speed
 				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shapes
 				body.get_node("CrouchColShape2D").queue_free()
 				body.get_node("DashColShape2D").queue_free()
-				respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
+				#respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
+				#press_enter.show()
+				#play_animation("countdown")
 			start_damage_cooldown()  # Start the cooldown timer
 		
 		elif body.is_in_group("AIPlayer") and not body.is_invincible:
@@ -64,10 +71,11 @@ func _on_body_entered(body):
 				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shape
 				
 				if all_ai_bots_dead():
-					Engine.time_scale = 0.5  # Slow down the game to half speed
 					var player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
 					player.is_invincible = true 
-					respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
+					#respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
+					#press_enter.show()
+					#play_animation("countdown")
 			start_damage_cooldown()  # Start the cooldown timer
 			
 
@@ -80,19 +88,19 @@ func _on_dmg_cooldown_timer_timeout():
 	can_damage = true
 	print("Damage cooldown ended")
 
-func _on_respawn_timer_timeout():
+##func _on_respawn_timer_timeout():
 	# Called when the Timer's wait time elapses
-	print("RESPAWNED")  # Debug message to confirm the timer timeout function is called
-	Engine.time_scale = 1.0  # Restore the game speed to normal
+	#print("RESPAWNED")  # Debug message to confirm the timer timeout function is called
+	#Engine.time_scale = 1.0  # Restore the game speed to normal
 	
 	# random stage
-	var rand = randi_range(1, 3)
-	if rand == 1:
-		get_tree().change_scene_to_file("res://scenes/game.tscn")
-	elif rand == 2:
-		get_tree().change_scene_to_file("res://scenes/stage2.tscn")
-	elif rand == 3:
-		get_tree().change_scene_to_file("res://scenes/stage3.tscn")
+	#var rand = randi_range(1, 3)
+	#if rand == 1:
+		#get_tree().change_scene_to_file("res://scenes/game.tscn")
+	#elif rand == 2:
+		#get_tree().change_scene_to_file("res://scenes/stage2.tscn")
+	#elif rand == 3:
+		#get_tree().change_scene_to_file("res://scenes/stage3.tscn")
 	
 	
 func all_ai_bots_dead() -> bool:
@@ -101,4 +109,9 @@ func all_ai_bots_dead() -> bool:
 	for ai_bot in ai_bots:
 		if !ai_bot.is_dead:  # Assuming 'is_alive' is a property or method you have to check the AI's status
 			return false
+	emit_signal("all_bots_dead")	
 	return true
+
+#func play_animation(animation_name: String):
+	#enter_player.stop()
+	#enter_player.play(animation_name, -1.0, 1.0, false) #plays the animation from the start

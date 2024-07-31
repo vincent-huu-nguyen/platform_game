@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2cba8mniyu2c"]
+[gd_scene load_steps=19 format=3 uid="uid://d2cba8mniyu2c"]
 
 [ext_resource type="Texture2D" uid="uid://cp7ykpjfj64q0" path="res://assets/sprites/world_tileset.png" id="1_bpp6q"]
 [ext_resource type="Script" path="res://scenes/stage3.gd" id="1_vxhnr"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bhluq3c4neyx" path="res://scenes/ai_player.tscn" id="4_51ja2"]
 [ext_resource type="PackedScene" uid="uid://ca22r4ex4tvt6" path="res://scenes/killzone.tscn" id="5_33txb"]
 [ext_resource type="PackedScene" uid="uid://elfk106j2s4k" path="res://scenes/pause_menu.tscn" id="7_ci37n"]
+[ext_resource type="FontFile" uid="uid://bjmeqxqw2fx8a" path="res://assets/fonts/superstar_memesbruh03.ttf" id="7_yxx0t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k3lkv"]
 texture = ExtResource("1_bpp6q")
@@ -444,6 +445,62 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_25eky"]
 distance = -156.0
 
+[sub_resource type="Animation" id="Animation_odttc"]
+resource_name = "tryagain"
+length = 1.25
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Try again?", "Try again?.", "Try again?..", "Try again?...", "Try again?....", "Try again?....."]
+}
+
+[sub_resource type="Animation" id="Animation_fdujy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press \"ENTER\" To Try Again
+or wait [3]"]
+}
+
+[sub_resource type="Animation" id="Animation_u2rcr"]
+resource_name = "countdown"
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Recruiting more Red Pandas", "Recruiting more Red Pandas.", "Recruiting more Red Pandas..", "Recruiting more Red Pandas...", "Recruiting more Red Pandas...."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_od63n"]
+_data = {
+"RESET": SubResource("Animation_fdujy"),
+"countdown": SubResource("Animation_u2rcr"),
+"tryagain": SubResource("Animation_odttc")
+}
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_vxhnr")
 
@@ -489,8 +546,34 @@ shape = SubResource("WorldBoundaryShape2D_25eky")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="PressEnter" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.5
+offset_top = -41.5
+offset_right = 235.5
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_yxx0t")
+theme_override_font_sizes/font_size = 80
+text = "Press \"ENTER\" To Try Again
+or wait [3]"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/PressEnter"]
+libraries = {
+"": SubResource("AnimationLibrary_od63n")
+}
+
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_ci37n")]
 
 [node name="if_stuck_timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.6
 one_shot = true
+
+[connection signal="timeout" from="if_stuck_timer" to="." method="_on_if_stuck_timer_timeout"]

@@ -3,6 +3,7 @@ extends Control
 var stage_one = "res://scenes/game.tscn"
 
 @onready var title = $CanvasLayer/Title
+@onready var red_title = $CanvasLayer/Title_RED
 @onready var mainmenu = $CanvasLayer/MainMenu
 @onready var credits = $CanvasLayer/Credits
 @onready var modes = $CanvasLayer/ModeSelect
@@ -17,6 +18,7 @@ func _on_play_pressed():
 func _on_settings_pressed():
 	mainmenu.hide()
 	title.hide()
+	red_title.hide()
 	input_settings.show()
 
 
@@ -37,6 +39,7 @@ func _on_close_credits_pressed():
 func _on_arcade_pressed():
 	modes.hide()
 	title.hide()
+	red_title.hide()
 	ai_instructions.show()
 
 
@@ -44,6 +47,7 @@ func _on_back_pressed():
 	modes.hide()
 	mainmenu.show()
 	title.show()
+	red_title.show()
 
 
 func _on_start_pressed():
@@ -55,3 +59,4 @@ func _on_exit_setting_pressed():
 	input_settings.hide()
 	mainmenu.show()
 	title.show()
+	red_title.show()
