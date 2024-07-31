@@ -6,7 +6,6 @@ var tryagain_label = false
 
 @onready var respawnTimer = $if_stuck_timer
 @onready var pauseMenu = $CanvasLayer/PauseMenu
-@onready var boostup_sound_player = $Area2D/BoostUp
 
 @onready var press_enter = $CanvasLayer/PressEnter
 @onready var enter_player = $CanvasLayer/PressEnter/AnimationPlayer
@@ -47,17 +46,19 @@ func _physics_process(delta):
 func _on_if_stuck_timer_timeout(): # respawnTimer
 	Engine.time_scale = 1.0
 	
+	print("testing testing 123")
+	
 	# restart to first stage if lose
 	if player.is_dead:
 		get_tree().change_scene_to_file("res://scenes/game.tscn")
-	
-	var rand = randi_range(1, 3)
-	if rand == 1:
-		get_tree().change_scene_to_file("res://scenes/game.tscn")
-	elif rand == 2:
-		get_tree().reload_current_scene()
-	elif rand == 3:
-		get_tree().change_scene_to_file("res://scenes/stage3.tscn")
+	else:
+		var rand = randi_range(1, 3)
+		if rand == 1:
+			get_tree().change_scene_to_file("res://scenes/game.tscn")
+		elif rand == 2:
+			get_tree().reload_current_scene()
+		elif rand == 3:
+			get_tree().change_scene_to_file("res://scenes/stage3.tscn")
 
 func all_ai_bots_dead() -> bool:
 	# Checks if all AI bots in the scene are dead

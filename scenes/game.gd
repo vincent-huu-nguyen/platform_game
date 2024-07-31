@@ -56,14 +56,14 @@ func _on_if_stuck_timer_timeout(): # respawnTimer
 	# restart to first stage if lose
 	if player.is_dead:
 		get_tree().reload_current_scene()
-	
-	var rand = randi_range(1, 3)
-	if rand == 1:
-		get_tree().reload_current_scene()
-	elif rand == 2:
-		get_tree().change_scene_to_file("res://scenes/stage2.tscn")
-	elif rand == 3:
-		get_tree().change_scene_to_file("res://scenes/stage3.tscn")
+	else:
+		var rand = randi_range(1, 3)
+		if rand == 1:
+			get_tree().reload_current_scene()
+		elif rand == 2:
+			get_tree().change_scene_to_file("res://scenes/stage2.tscn")
+		elif rand == 3:
+			get_tree().change_scene_to_file("res://scenes/stage3.tscn")
 
 func all_ai_bots_dead() -> bool:
 	# Checks if all AI bots in the scene are dead
