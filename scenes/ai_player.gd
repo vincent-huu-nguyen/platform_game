@@ -7,7 +7,7 @@ const DASH_SPEED = 450.0
 const DASH_DURATION = 0.1
 const DASH_COOLDOWN = 1.0
 const MAX_HEALTH = 5
-const REGEN_INTERVAL = 1.0
+const REGEN_INTERVAL = 1.5
 const MIN_DISTANCE = 115.0  # Minimum distance to keep from the player
 const MAX_DISTANCE = 118.0  # Maximum distance to keep from the player
 
@@ -25,7 +25,7 @@ var is_invincible = false
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
 var can_fire = true
-var rate_of_fire = max(1.0 - (0.1 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.1
+var rate_of_fire = max(1.0 - (0.05 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.1
 
 # Onready variables to cache node references
 @onready var animated_sprite = $AnimatedSprite2D

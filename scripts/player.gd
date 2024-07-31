@@ -6,7 +6,7 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const DASH_SPEED = 450.0
 const DASH_DURATION = 0.13
-const DASH_COOLDOWN = 1.0
+const DASH_COOLDOWN = 0.5
 const MAX_HEALTH = 5
 const REGEN_INTERVAL = 2.0
 

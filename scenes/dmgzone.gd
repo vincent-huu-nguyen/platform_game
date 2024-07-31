@@ -51,9 +51,11 @@ func _on_body_entered(body):
 			if body.health <= 0:
 				ko_sound_player.play()  # Play KO sound
 				print("player died...")
-				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shapes
+				body.get_node("CollisionShape2D").queue_free()  # Remove all of the player's collision shapes
 				body.get_node("CrouchColShape2D").queue_free()
 				body.get_node("DashColShape2D").queue_free()
+				var bot = get_tree().root.get_node("Game/AIPlayer")  # Adjust path to player node
+				bot.is_invincible = true 
 				#respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
 				#press_enter.show()
 				#play_animation("countdown")
