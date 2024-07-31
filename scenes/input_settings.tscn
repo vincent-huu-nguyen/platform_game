@@ -1,8 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckk5nsu2le1g3"]
+[gd_scene load_steps=7 format=3 uid="uid://ckk5nsu2le1g3"]
 
 [ext_resource type="Script" path="res://scenes/input_settings.gd" id="1_0ivlm"]
 [ext_resource type="PackedScene" uid="uid://kfcbhfh5etda" path="res://scenes/input_button.tscn" id="1_v6q3t"]
 [ext_resource type="FontFile" uid="uid://bjmeqxqw2fx8a" path="res://assets/fonts/superstar_memesbruh03.ttf" id="3_7nlkt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1frr"]
+bg_color = Color(0.550436, 0.0913919, 1.44392e-07, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.54902, 0.0901961, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8brki"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -32,6 +44,7 @@ offset_right = 256.0
 offset_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e1frr")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2

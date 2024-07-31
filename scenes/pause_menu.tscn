@@ -1,31 +1,55 @@
-[gd_scene load_steps=11 format=3 uid="uid://elfk106j2s4k"]
+[gd_scene load_steps=7 format=3 uid="uid://elfk106j2s4k"]
 
 [ext_resource type="Script" path="res://scenes/pause_menu.gd" id="1_urnyd"]
 [ext_resource type="FontFile" uid="uid://bjmeqxqw2fx8a" path="res://assets/fonts/superstar_memesbruh03.ttf" id="3_ijl2i"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgsmy"]
+bg_color = Color(0.772549, 0.145098, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.54902, 0.0901961, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nmidc"]
-bg_color = Color(0, 0, 0, 0.392157)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j1u5w"]
-bg_color = Color(1, 1, 1, 0.392157)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mydvv"]
-bg_color = Color(1, 1, 1, 0.392157)
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjgnw"]
-bg_color = Color(0, 0, 0, 0.392157)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5k4mm"]
-bg_color = Color(1, 1, 1, 0.392157)
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbmq1"]
-bg_color = Color(0, 0, 0, 0.392157)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ydb7"]
-bg_color = Color(1, 1, 1, 0.392157)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j3e8"]
-bg_color = Color(1, 1, 1, 0.392157)
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -40,62 +64,81 @@ script = ExtResource("1_urnyd")
 [node name="Menu" type="Control" parent="."]
 visible = false
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Menu"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -248.0
+offset_top = -140.0
+offset_right = 248.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xgsmy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -109.5
+offset_right = 232.0
+offset_bottom = 109.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Menu"]
-layout_mode = 0
-offset_left = -148.0
-offset_top = -72.0
-offset_right = 188.0
-offset_bottom = 96.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/Panel"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 328.0
-offset_bottom = 136.0
-
 [node name="Resume" type="Button" parent="Menu/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_pressed_color = Color(1, 0.73586, 0.678261, 1)
+theme_override_colors/font_hover_color = Color(1, 0.737255, 0.678431, 1)
 theme_override_fonts/font = ExtResource("3_ijl2i")
+theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_nmidc")
-theme_override_styles/hover = SubResource("StyleBoxFlat_j1u5w")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_mydvv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nmidc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nmidc")
 text = "Resume"
 
 [node name="Restart" type="Button" parent="Menu/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_pressed_color = Color(1, 0.737255, 0.678431, 1)
+theme_override_colors/font_hover_color = Color(1, 0.737255, 0.678431, 1)
 theme_override_fonts/font = ExtResource("3_ijl2i")
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_qjgnw")
-theme_override_styles/hover = SubResource("StyleBoxFlat_5k4mm")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_5k4mm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qjgnw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qjgnw")
 text = "Restart 
 (to score: 0)"
 
 [node name="Quit" type="Button" parent="Menu/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_pressed_color = Color(1, 0.737255, 0.678431, 1)
+theme_override_colors/font_hover_color = Color(1, 0.737255, 0.678431, 1)
 theme_override_fonts/font = ExtResource("3_ijl2i")
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_rbmq1")
-theme_override_styles/hover = SubResource("StyleBoxFlat_1ydb7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_6j3e8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rbmq1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rbmq1")
 text = "Quit 
 (Score will stay the same)"
 
 [node name="If_Stuck" type="Label" parent="Menu/Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_ijl2i")
 text = "If you are stuck on a level, press \"Enter\""
