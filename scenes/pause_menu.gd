@@ -1,6 +1,7 @@
 extends Control
 
-@onready var pauseMenu = $"."
+@onready var pauseMenu = $Menu
+
 
 func _process(delta):
 	testEsc()
@@ -42,3 +43,4 @@ func _on_quit_pressed():
 	Global.permanant_buff = false
 	resume()
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+

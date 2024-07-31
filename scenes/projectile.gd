@@ -28,10 +28,10 @@ func _ready() -> void:
 		rbamboo.visible = true
 		chargedshot_sound_player.play()
 	else:
-		if wielder.name == "Player":
-			gbamboo.visible = true
-		elif wielder.name == "AIPlayer" or "MM_AIPlayer":
+		if wielder.name == "AIPlayer":
 			ybamboo.visible = true
+		elif wielder.name == "Player" or "MM_AIPlayer":
+			gbamboo.visible = true
 		shoot_sound_player.play()
 	
 	# Convert rotation from radians to direction vector

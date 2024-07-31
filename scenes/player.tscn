@@ -1,7 +1,8 @@
-[gd_scene load_steps=75 format=3 uid="uid://cfapitvkmf6j6"]
+[gd_scene load_steps=76 format=3 uid="uid://cfapitvkmf6j6"]
 
 [ext_resource type="Texture2D" uid="uid://x6gn1mnhgenl" path="res://assets/sprites/knight.png" id="1_2sxm1"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t3c8r"]
+[ext_resource type="FontFile" uid="uid://bjmeqxqw2fx8a" path="res://assets/fonts/superstar_memesbruh03.ttf" id="2_bmeyu"]
 [ext_resource type="Texture2D" uid="uid://dt0ov85on0ki7" path="res://assets/sprites/Red Panda.png" id="2_ec1fn"]
 [ext_resource type="Texture2D" uid="uid://cc6jxektkldnj" path="res://assets/sprites/RedPanda(more).png" id="2_fp4hv"]
 [ext_resource type="Script" path="res://scenes/shooter.gd" id="3_apwp3"]
@@ -486,16 +487,18 @@ script = ExtResource("1_t3c8r")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ScoreLabel" type="Label" parent="UI"]
-offset_left = 16.0
-offset_right = 56.0
-offset_bottom = 137.0
-theme_override_font_sizes/font_size = 100
+offset_left = 32.0
+offset_right = 72.0
+offset_bottom = 151.0
+theme_override_fonts/font = ExtResource("2_bmeyu")
+theme_override_font_sizes/font_size = 150
 
 [node name="HiScoreLabel" type="Label" parent="UI"]
-offset_left = 16.0
+offset_left = 32.0
 offset_top = 152.0
-offset_right = 56.0
+offset_right = 72.0
 offset_bottom = 194.0
+theme_override_fonts/font = ExtResource("2_bmeyu")
 theme_override_font_sizes/font_size = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

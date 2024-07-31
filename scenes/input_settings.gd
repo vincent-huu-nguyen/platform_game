@@ -4,6 +4,9 @@ extends Control
 @onready var input_button_scene = preload("res://scenes/input_button.tscn")
 @onready var action_list = $PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList
 
+const MUSIC_BUS = "Music"
+const SOUND_BUS = "Sound"
+
 var is_remapping = false
 var action_to_remap = null
 var remapping_button = null
@@ -76,3 +79,21 @@ func _update_action_list(button, event):
 
 func _on_default_button_pressed():
 	_create_action_list()
+
+
+func _on_master_slider_value_changed(value):
+	if value == -45:
+		AudioServer.set_bus_mute(0, true)
+	else:
+		AudioServer.set_bus_mute(0, false)
+	AudioServer.set_bus_volume_db(0, value)
+
+
+func _on_music_slider_value_changed(value):
+	var BusInt = AudioServer.get_bus_index(MUSIC_BUS)
+	AudioServer.set_bus_volume_db(BusInt, value)
+
+
+func _on_sound_slider_value_changed(value):
+	var BusInt = AudioServer.get_bus_index(SOUND_BUS)
+	AudioServer.set_bus_volume_db(BusInt, value)
