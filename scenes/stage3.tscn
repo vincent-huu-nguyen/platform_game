@@ -479,6 +479,9 @@ autoplay = "move"
 [node name="AIPlayer" parent="." instance=ExtResource("4_51ja2")]
 position = Vector2(312, -8)
 
+[node name="AIPlayer2" parent="." instance=ExtResource("4_51ja2")]
+position = Vector2(312, -8)
+
 [node name="Killzone2" parent="." instance=ExtResource("5_33txb")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone2"]

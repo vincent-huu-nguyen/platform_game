@@ -60,9 +60,14 @@ func _on_body_entered(body):
 			if body.health <= 0:
 				ko_sound_player.play()  # Play KO sound
 				print("ai died...")
-				Engine.time_scale = 0.5  # Slow down the game to half speed
+				
 				body.get_node("CollisionShape2D").queue_free()  # Remove the player's collision shape
-				respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
+				
+				if all_ai_bots_dead():
+					Engine.time_scale = 0.5  # Slow down the game to half speed
+					var player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
+					player.is_invincible = true 
+					respawn_timer.start()  # Start the Timer to trigger the scene reload after the specified wait time
 			start_damage_cooldown()  # Start the cooldown timer
 			
 
@@ -89,3 +94,11 @@ func _on_respawn_timer_timeout():
 	elif rand == 3:
 		get_tree().change_scene_to_file("res://scenes/stage3.tscn")
 	
+	
+func all_ai_bots_dead() -> bool:
+	# Checks if all AI bots in the scene are dead
+	var ai_bots = get_tree().get_nodes_in_group("AIPlayer")
+	for ai_bot in ai_bots:
+		if !ai_bot.is_dead:  # Assuming 'is_alive' is a property or method you have to check the AI's status
+			return false
+	return true

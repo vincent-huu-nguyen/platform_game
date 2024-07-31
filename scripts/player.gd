@@ -28,6 +28,7 @@ var score = 0
 var projectile = preload("res://scenes/projectile.tscn")
 #var melee = preload("res://scenes/melee.tscn")
 var can_fire = true
+var can_score =  true
 var rate_of_fire = 0.5
 
 # Onready variables to cache node references
@@ -73,10 +74,11 @@ func update_score_label():
 	
 # Method to increment score and update UI
 func increment_score():
-	Global.score += 1
-	Global.check_highscore()
-	update_score_label()
-	print("Score incremented to: ", Global.score)
+	if can_score:
+		Global.score += 1
+		Global.check_highscore()
+		update_score_label()
+		print("Score incremented to: ", Global.score)
 	
 # Called every frame
 func _process(delta):

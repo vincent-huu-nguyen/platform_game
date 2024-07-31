@@ -217,7 +217,6 @@ func die():
 	player = get_tree().root.get_node("Game/Player")  # Adjust path to player node
 	if player:
 		player.increment_score()
-		player.is_invincible = true
 
 func update_health_ui():
 	if health <= 0:
