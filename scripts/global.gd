@@ -19,7 +19,7 @@ func _ready():
 func reset_score():
 	score = 0
 
-func check_highscore():
+func check_highscore(): #make score < highscore to reset
 	if score > highscore and !permanant_buff:
 		highscore = score
 		save_highscore()

@@ -526,10 +526,10 @@ position_smoothing_enabled = true
 position = Vector2(560, -120)
 
 [node name="AIPlayer2" parent="." instance=ExtResource("3_7ho7c")]
-position = Vector2(560, -120)
+position = Vector2(520, -88)
 
 [node name="AIPlayer3" parent="." instance=ExtResource("3_7ho7c")]
-position = Vector2(560, -120)
+position = Vector2(488, -56)
 
 [node name="Slime" parent="." instance=ExtResource("4_p4j4a")]
 position = Vector2(264, -316)
