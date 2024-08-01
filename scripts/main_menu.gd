@@ -11,6 +11,9 @@ var stage_one = "res://scenes/game.tscn"
 @onready var input_settings = $CanvasLayer/InputSettings
 
 
+func _ready():
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
 func _on_play_pressed():
 	mainmenu.hide()
 	modes.show()
@@ -52,7 +55,7 @@ func _on_back_pressed():
 
 func _on_start_pressed():
 	# get_tree().change_scene_to_file(stage_one)
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	get_tree().change_scene_to_file("res://scenes/stage1.tscn")
 
 
 func _on_exit_setting_pressed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bhluq3c4neyx"]
+[gd_scene load_steps=63 format=3 uid="uid://bhluq3c4neyx"]
 
 [ext_resource type="Script" path="res://scenes/ai_player.gd" id="1_7x53n"]
 [ext_resource type="Texture2D" uid="uid://dvdd50awufap" path="res://assets/sprites/PurpleRedPanda.png" id="3_0r0dv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://coujujmbt7j61" path="res://assets/sprites/Bamboos.png" id="7_hlr2v"]
 [ext_resource type="Texture2D" uid="uid://6dfyh10lqqd0" path="res://assets/sprites/YellowBamboo.png" id="7_kvinc"]
 [ext_resource type="AudioStream" uid="uid://4b7jthykmxs1" path="res://assets/sounds/power_up.wav" id="9_7i62m"]
+[ext_resource type="Shader" path="res://bamboo_weapon.gdshader" id="9_okqpd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5n6m"]
 atlas = ExtResource("3_0r0dv")
@@ -396,6 +397,11 @@ size = Vector2(11, 20)
 atlas = ExtResource("7_hlr2v")
 region = Rect2(0, 64, 32, 32)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_22tqs"]
+shader = ExtResource("9_okqpd")
+shader_parameter/old_bamboo_color = null
+shader_parameter/new_bamboo_color = null
+
 [node name="AIPlayer" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 3
@@ -408,6 +414,7 @@ position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_r44iu")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.518187
 
 [node name="Hearts" type="TextureRect" parent="AnimatedSprite2D"]
 anchors_preset = 1
@@ -452,6 +459,7 @@ position = Vector2(-6, 0)
 texture = SubResource("AtlasTexture_4r6no")
 
 [node name="Weapon" type="Sprite2D" parent="HandAnchor/Shooter"]
+material = SubResource("ShaderMaterial_22tqs")
 position = Vector2(-6, 0)
 texture = ExtResource("7_kvinc")
 

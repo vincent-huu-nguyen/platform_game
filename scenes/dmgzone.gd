@@ -111,7 +111,7 @@ func all_ai_bots_dead() -> bool:
 	for ai_bot in ai_bots:
 		if !ai_bot.is_dead:  # Assuming 'is_alive' is a property or method you have to check the AI's status
 			return false
-	emit_signal("all_bots_dead")	
+	#emit_signal("all_bots_dead")	
 	return true
 
 #func play_animation(animation_name: String):

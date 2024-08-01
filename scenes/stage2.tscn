@@ -1,6 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://bh03r06bvl30o"]
+[gd_scene load_steps=20 format=3 uid="uid://bh03r06bvl30o"]
 
-[ext_resource type="Script" path="res://scenes/stage2.gd" id="1_fxesm"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_dni3j"]
 [ext_resource type="Texture2D" uid="uid://cp7ykpjfj64q0" path="res://assets/sprites/world_tileset.png" id="1_pybpt"]
 [ext_resource type="PackedScene" uid="uid://cfapitvkmf6j6" path="res://scenes/player.tscn" id="2_u7t3b"]
 [ext_resource type="PackedScene" uid="uid://bhluq3c4neyx" path="res://scenes/ai_player.tscn" id="3_7ho7c"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bv8v5s102ym6w" path="res://scenes/platform2.tscn" id="5_wx8wk"]
 [ext_resource type="PackedScene" uid="uid://elfk106j2s4k" path="res://scenes/pause_menu.tscn" id="7_2jjv5"]
 [ext_resource type="FontFile" uid="uid://bjmeqxqw2fx8a" path="res://assets/fonts/superstar_memesbruh03.ttf" id="7_npxpv"]
+[ext_resource type="AudioStream" uid="uid://c6fxw1hxnvkiv" path="res://assets/sounds/jump.wav" id="9_2we6f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fur0o"]
 texture = ExtResource("1_pybpt")
@@ -442,23 +443,6 @@ _data = {
 "move": SubResource("Animation_4u8hj")
 }
 
-[sub_resource type="Animation" id="Animation_odttc"]
-resource_name = "tryagain"
-length = 1.25
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": ["Try again?", "Try again?.", "Try again?..", "Try again?...", "Try again?....", "Try again?....."]
-}
-
 [sub_resource type="Animation" id="Animation_fdujy"]
 length = 0.001
 tracks/0/type = "value"
@@ -490,6 +474,23 @@ tracks/0/keys = {
 "values": ["Recruiting more Red Pandas", "Recruiting more Red Pandas.", "Recruiting more Red Pandas..", "Recruiting more Red Pandas...", "Recruiting more Red Pandas...."]
 }
 
+[sub_resource type="Animation" id="Animation_odttc"]
+resource_name = "tryagain"
+length = 1.25
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Try again?", "Try again?.", "Try again?..", "Try again?...", "Try again?....", "Try again?....."]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_od63n"]
 _data = {
 "RESET": SubResource("Animation_fdujy"),
@@ -497,8 +498,11 @@ _data = {
 "tryagain": SubResource("Animation_odttc")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xr5em"]
+size = Vector2(8, 14)
+
 [node name="Game" type="Node2D"]
-script = ExtResource("1_fxesm")
+script = ExtResource("1_dni3j")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_vj583")
@@ -585,5 +589,15 @@ libraries = {
 [node name="if_stuck_timer" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(288, -512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_xr5em")
+
+[node name="BoostUp" type="AudioStreamPlayer2D" parent="Area2D"]
+stream = ExtResource("9_2we6f")
 
 [connection signal="timeout" from="if_stuck_timer" to="." method="_on_if_stuck_timer_timeout"]
