@@ -50,7 +50,7 @@ func _ready():
 	player = get_tree().root.get_node("Game/Player") # Adjust path to player node
 
 	if Global.score >= 20:
-		rate_of_fire = max(0.1 - (0.001 * (Global.score-19)), 0.01)
+		rate_of_fire = max(0.1 - (0.001 * (Global.score-19)), 0.01) #rate of fire increases by score, lowest is 0.01
 
 # Called every frame
 func _process(delta):
