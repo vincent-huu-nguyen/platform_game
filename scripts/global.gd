@@ -1,5 +1,7 @@
 extends Node
 
+
+#create new file name in future updates
 const SAVE_FILE_PATH = "user://savedata.save"
 
 # Score variables

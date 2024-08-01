@@ -11,8 +11,8 @@ var stage_one = "res://scenes/game.tscn"
 @onready var input_settings = $CanvasLayer/InputSettings
 
 
-func _ready():
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+#func _ready():
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _on_play_pressed():
 	mainmenu.hide()

@@ -7,6 +7,7 @@ var damage: float = 1.0
 
 @onready var life_timer = $LifeTimer
 @onready var timer  = $RespawnTimer
+@onready var collision = $CollisionPolygon2D3
 @onready var gbamboo = $BambooSprite
 @onready var ybamboo = $YBambooSprite
 @onready var rbamboo = $ChargedBambooSprite
@@ -14,6 +15,7 @@ var damage: float = 1.0
 @onready var shoot_sound_player = $Shoot
 
 var wielder = null
+var is_charged_weapon = false
 
 func _ready() -> void:
 	
@@ -25,6 +27,7 @@ func _ready() -> void:
 	# Switches weapon sprites depending on the wielder
 	print("Wielder: ", wielder.name)
 	if wielder.is_charged == true:
+		is_charged_weapon = true
 		rbamboo.visible = true
 		chargedshot_sound_player.play()
 	else:
@@ -53,7 +56,20 @@ func _ready() -> void:
 	life_timer.start()
 	# Correctly connect the signal
 	life_timer.connect("timeout", Callable(self, "_on_LifeTimer_timeout"))
+	
 
 func _on_LifeTimer_timeout():
 	queue_free()
 	
+
+# If Red Panda catches charged bamboo, Red Panda recharges.
+func _on_recharge_area_body_entered(body):
+	if body.is_in_group("Player") and wielder.name == "Player" and is_charged_weapon:
+			print("CHARGED WEAPON ALERT")
+			body.recharge()
+			queue_free()
+			
+	elif body.is_in_group("AIPlayer") and wielder.name == "AIPlayer" and is_charged_weapon:
+			print("CHARGED WEAPON ALERT")
+			body.recharge()
+			queue_free()

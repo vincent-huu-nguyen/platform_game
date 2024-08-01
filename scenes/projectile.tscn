@@ -39,7 +39,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-9, -2, 9, -2, 6, 2, -9, 2)
+polygon = PackedVector2Array(-3, -2, 9, -2, 6, 2, -3, 2)
 
 [node name="ChargedShot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_vfa7p")
@@ -49,5 +49,12 @@ bus = &"Sound"
 stream = ExtResource("7_d2l2h")
 bus = &"Sound"
 
+[node name="RechargeArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RechargeArea"]
+polygon = PackedVector2Array(-4, 5, 9, 5, 14, -5, -4, -5)
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="dmgzone" to="." method="_on_dmgzone_body_entered"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="body_entered" from="RechargeArea" to="." method="_on_recharge_area_body_entered"]

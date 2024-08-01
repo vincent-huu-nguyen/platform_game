@@ -352,3 +352,10 @@ func _on_charge_timer_timeout():
 	charged_sound_player.play()
 	charge_timer.stop()
 	print("Charging Complete")
+
+func recharge():
+	is_charged = true
+	weapon.visible = false
+	charged_sound_player.play()
+	charge_timer.stop()
+	print("Charging Complete")
