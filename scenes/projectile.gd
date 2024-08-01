@@ -7,6 +7,7 @@ var damage: float = 1.0
 
 @onready var life_timer = $LifeTimer
 @onready var timer  = $RespawnTimer
+@onready var dmg_collision = $dmgzone/CollisionPolygon2D2
 @onready var collision = $CollisionPolygon2D3
 @onready var gbamboo = $BambooSprite
 @onready var ybamboo = $YBambooSprite
@@ -62,14 +63,27 @@ func _on_LifeTimer_timeout():
 	queue_free()
 	
 
-# If Red Panda catches charged bamboo, Red Panda recharges.
+# If Red Panda catches charged bamboo, Red Panda recharges. 
 func _on_recharge_area_body_entered(body):
 	if body.is_in_group("Player") and wielder.name == "Player" and is_charged_weapon:
-			print("CHARGED WEAPON ALERT")
-			body.recharge()
-			queue_free()
+		print("CHARGED WEAPON ALERT")
+		body.recharge()
+		queue_free()
 			
 	elif body.is_in_group("AIPlayer") and wielder.name == "AIPlayer" and is_charged_weapon:
-			print("CHARGED WEAPON ALERT")
-			body.recharge()
-			queue_free()
+		print("CHARGED WEAPON ALERT")
+		body.recharge()
+		queue_free()
+			
+
+# Once hit, the projectile stop dealing dmg (for uncharged bamboos)
+func _on_dmgzone_body_entered(body):
+	if body.is_in_group("Player") and wielder.name == "AIPlayer" and !is_charged_weapon:
+		print("Weapon broke")
+		dmg_collision.queue_free()
+	
+	elif body.is_in_group("AIPlayer") and wielder.name == "Player" and !is_charged_weapon:
+		print("Weapon broke")
+		dmg_collision.queue_free()
+	
+
