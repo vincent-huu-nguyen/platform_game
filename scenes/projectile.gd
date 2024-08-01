@@ -2,7 +2,7 @@ class_name Projectile
 extends RigidBody2D
 
 var initial_velocity: float = 300.0
-var life_time: float = 2.0
+var life_time: float = 1.5
 var damage: float = 1.0
 
 @onready var life_timer = $LifeTimer

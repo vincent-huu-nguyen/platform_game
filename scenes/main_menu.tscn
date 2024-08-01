@@ -791,15 +791,10 @@ offset_bottom = 223.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_n2qwm")
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 23
 text = "HOW TO PLAY
-Your goal is to beat your opponents.
-Difficulty increases as you score higher. 
-Your score resets when your opponents defeat you.
-Take breaks from shooting to charge 
-power shots and regenerate.
-(Your opponents may also do the same.)
-Let's see how long you can last...
+Beat your opponents to score.
+Your score resets when you are defeated.
 
 CONTROLS (mouse recommended)
 Left: \"a\", left arrow key
@@ -810,9 +805,9 @@ Dash: right click
 Shoot: left click
 Dash/Shoot Aim: mouse
 
-If stuck on a level: \"enter\" 
-(sorry, harmless but annoying bug
- that got me stressin' for too long)"
+Tip
+Take breaks from shooting to charge 
+power shots and regenerate."
 horizontal_alignment = 1
 
 [node name="Start" type="Button" parent="CanvasLayer/ai_HowToPlay"]
