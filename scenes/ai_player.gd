@@ -24,7 +24,7 @@ var is_invincible = false
 
 # Preloaded projectile scene for easy instantiation
 var projectile = preload("res://scenes/projectile.tscn")
-var can_fire = false
+var can_fire = true
 var rate_of_fire = max(1.0 - (0.015 * Global.score), 0.1) # increase rate of fire and ensure it does not go below 0.1
 
 # Onready variables to cache node references
@@ -49,8 +49,8 @@ func _ready():
 	update_health_ui()
 	player = get_tree().root.get_node("Game/Player") # Adjust path to player node
 
-	if Global.score >= 20:
-		rate_of_fire = max(0.1 - (0.001 * (Global.score-19)), 0.01) #rate of fire increases by score, lowest is 0.01
+	#if Global.score >= 20:
+	#	rate_of_fire = max(0.1 - (0.001 * (Global.score-19)), 0.01) #rate of fire increases by score, lowest is 0.01
 
 # Called every frame
 func _process(delta):

@@ -71,7 +71,7 @@ func _on_recharge_area_body_entered(body):
 		body.recharge()
 		queue_free()
 		
-	elif body.is_in_group("AIPlayer") and wielder.name == "AIPlayer" and is_charged_weapon:
+	elif body.is_in_group("AIPlayer") and (wielder.name == "AIPlayer" or wielder.name == "AIPlayer2" or wielder.name == "AIPlayer3") and is_charged_weapon:
 		print("CHARGED WEAPON ALERT")
 		body.recharge()
 		queue_free()
