@@ -2,9 +2,10 @@ class_name Projectile
 extends RigidBody2D
 
 var initial_velocity: float = 300.0
-var life_time: float = 1.5
+var life_time: float = 1.0
 var damage: float = 1.0
 
+@onready var projectile = $"."
 @onready var life_timer = $LifeTimer
 @onready var timer  = $RespawnTimer
 @onready var dmg_collision = $dmgzone/CollisionPolygon2D2
@@ -69,21 +70,23 @@ func _on_recharge_area_body_entered(body):
 		print("CHARGED WEAPON ALERT")
 		body.recharge()
 		queue_free()
-			
+		
 	elif body.is_in_group("AIPlayer") and wielder.name == "AIPlayer" and is_charged_weapon:
 		print("CHARGED WEAPON ALERT")
 		body.recharge()
 		queue_free()
-			
+	
 
 # Once hit, the projectile stop dealing dmg (for uncharged bamboos)
 func _on_dmgzone_body_entered(body):
-	if body.is_in_group("Player") and wielder.name == "AIPlayer" and !is_charged_weapon:
+	if body.is_in_group("Player") and (wielder.name == "AIPlayer" or wielder.name == "AIPlayer2" or wielder.name == "AIPlayer3") and !is_charged_weapon:
 		print("Weapon broke")
+		collision.queue_free()
 		dmg_collision.queue_free()
 	
 	elif body.is_in_group("AIPlayer") and wielder.name == "Player" and !is_charged_weapon:
 		print("Weapon broke")
+		collision.queue_free()
 		dmg_collision.queue_free()
 	
 

@@ -535,7 +535,7 @@ shape = SubResource("RectangleShape2D_uqdp7")
 one_shot = true
 
 [node name="ChargeTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 
 [node name="DashCooldown" type="Timer" parent="."]
 one_shot = true

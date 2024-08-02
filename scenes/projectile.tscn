@@ -31,7 +31,7 @@ texture = ExtResource("4_usnry")
 texture = SubResource("AtlasTexture_17wg2")
 
 [node name="LifeTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="RespawnTimer" type="Timer" parent="."]
@@ -52,7 +52,7 @@ bus = &"Sound"
 [node name="RechargeArea" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RechargeArea"]
-polygon = PackedVector2Array(-4, 5, 9, 5, 14, -5, -4, -5)
+polygon = PackedVector2Array(-5, 7, 11, 7, 16, -7, -5, -7, -4, -2.15546, -4, 2.28711)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="dmgzone" to="." method="_on_dmgzone_body_entered"]

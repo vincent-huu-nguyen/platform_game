@@ -212,7 +212,7 @@ func handle_shooting():
 		if is_charged:
 			weapon.visible = true
 			projectile_instance.initial_velocity = 750.0  # altering variables from other scenes
-			projectile_instance.life_time = 1.0
+			projectile_instance.life_time = 1.5
 			projectile_instance.get_node("dmgzone").damage = 3
 			get_parent().add_child(projectile_instance)
 			is_charged = false
