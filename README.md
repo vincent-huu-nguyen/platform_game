@@ -1,6 +1,6 @@
-![Red Panda Bash PNG](./redPandaBash.png)
-
 # 🐼 Red Panda Bash
+
+![Red Panda Bash PNG](./redPandaBash.png)
 
 A fast-paced platformer arcade game built with Godot Engine and GDScript. In **Red Panda Bash**, you play as a skilled red panda dodging obstacles and launching bamboo attacks in frantic duels against rivals.
 
@@ -10,7 +10,7 @@ A fast-paced platformer arcade game built with Godot Engine and GDScript. In **R
 
 ## 📸 Preview
 
-![Gameplay Preview](./battleRPB1.gif)
+![Gameplay Preview](./battleRPB.gif)
 ![Gameplay Preview](./battleRPB2.gif)
 
 ## ✨ Features
