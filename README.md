@@ -10,7 +10,8 @@ A fast-paced platformer arcade game built with Godot Engine and GDScript. In **R
 
 ## 📸 Preview
 
-![Gameplay Preview](./preview.gif) <!-- Replace with an actual GIF or screenshot if available -->
+![Gameplay Preview](./battleRPB1.gif)
+![Gameplay Preview](./battleRPB2.gif)
 
 ## ✨ Features
 
